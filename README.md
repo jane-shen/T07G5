@@ -1,6 +1,7 @@
 # T07G5
 Tetris
-  This is a text-based version of tetris. The graphics are displayed on the command prompt and user inputs are required to play the game.
+
+This is a text-based version of tetris. The graphics are displayed on the command prompt and user inputs are required to play the game.
   
 
 Prerequisites And Instructions
