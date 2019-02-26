@@ -32,8 +32,9 @@ public class Main {
           System.out.println();
           board.print2D();
           if (board.checkFullRow())
+            System.out.println();
             board.print2D();
-          if (board.bottomCollision(shape) || board.endGame(shape)){
+          if (board.bottomCollision(shape)){
             break;
           }
         }
@@ -64,8 +65,9 @@ public class Main {
           System.out.println();
           board.print2D();
           if (board.checkFullRow())
+            System.out.prinln();
             board.print2D();
-          if (board.bottomCollision(shape) || board.endGame(shape)){
+          if (board.bottomCollision(shape)){
             break;
           }
           continue;

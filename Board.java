@@ -259,6 +259,8 @@ public class Board extends Shape{
 
   /**
    * Checks if the current shape will collide with another shape below it or the bottom edge of the board
+   * It is also used for endgame; if a new shape respawns and encounters a bottom collision right away,
+   * the game ends
    * @param shape is the current random shape being moved on the board
    * @return true if the collision will happen
    */
@@ -293,6 +295,9 @@ public class Board extends Shape{
       if (board[maxY-yCoord+1][5+xCoord-maxX] == 1)
         return true;
     }
+    // since z and s-shapes both have a corner that's exposed for bottom collision
+    // but isn't the lowest point of the shape, we also have to check for bottom collision
+    // at these points
     if (shape.getShape() == ShapeType.SShape || shape.getShape() == ShapeType.ZShape){
       int cornerYValue = shape.getY(2);
       int cornerXValue = shape.getX(2);
@@ -302,18 +307,5 @@ public class Board extends Shape{
     }
   return false;
 }
-
-  public boolean endGame(Shape shape){
-    if (shape.getShape() == ShapeType.SShape || shape.getShape() == ShapeType.ZShape){
-      int bottomYValue = shape.getY(0);
-      int bottomXValue = shape.getX(0);
-      int cornerYValue = shape.getY(2);
-      int cornerXValue = shape.getX(2);
-      if (board[maxY-bottomYValue+1][5+bottomXValue-maxX] == 1 || board[maxY-cornerYValue+1][5+cornerXValue-maxX] == 1){
-        return true;
-      }
-    }
-    return false;
-  }
 
 }
