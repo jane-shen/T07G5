@@ -16,8 +16,9 @@ public class Shape {
 	*@param shape is the shape being initialized to a shapetype
 	*/
 	public void setShape(ShapeType shape) {
-				//this 3d array stores the enum ShapeTypes NoShape, ZShape, SShape, IShape, TShape, SquareShape, LShape, JShape
+				// this 3d array stores the enum ShapeTypes NoShape, ZShape, SShape, IShape, TShape, SquareShape, LShape, JShape
 				// each row is one ShapeType
+				// enum referenced from http://zetcode.com/tutorials/javagamestutorial/tetris/
         coordsTable = new int[][][] {
            { { 0, 0 },   { 0, 0 },   { 0, 0 },   { 0, 0 } },
            { { 0, -1 },  { 0, 0 },   { -1, 0 },  { -1, 1 } },
