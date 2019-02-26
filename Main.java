@@ -33,6 +33,9 @@ public class Main {
           board.print2D();
           if (board.checkFullRow())
             board.print2D();
+          if (board.bottomCollision(shape) || board.endGame(shape)){
+            break;
+          }
         }
         else if (input.equals("s") && !board.bottomCollision(shape)){
             // when "s" is pressed, the shape will move down, but only if no collision will occur
@@ -62,9 +65,13 @@ public class Main {
           board.print2D();
           if (board.checkFullRow())
             board.print2D();
+          if (board.bottomCollision(shape) || board.endGame(shape)){
+            break;
+          }
           continue;
         }
       }
     }
+    System.out.println("Game Over! :C");
   }
 }

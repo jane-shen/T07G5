@@ -293,6 +293,27 @@ public class Board extends Shape{
       if (board[maxY-yCoord+1][5+xCoord-maxX] == 1)
         return true;
     }
+    if (shape.getShape() == ShapeType.SShape || shape.getShape() == ShapeType.ZShape){
+      int cornerYValue = shape.getY(2);
+      int cornerXValue = shape.getX(2);
+      if (board[maxY-cornerYValue+1][5+cornerXValue-maxX] == 1){
+        return true;
+      }
+    }
+  return false;
+}
+
+  public boolean endGame(Shape shape){
+    if (shape.getShape() == ShapeType.SShape || shape.getShape() == ShapeType.ZShape){
+      int bottomYValue = shape.getY(0);
+      int bottomXValue = shape.getX(0);
+      int cornerYValue = shape.getY(2);
+      int cornerXValue = shape.getX(2);
+      if (board[maxY-bottomYValue+1][5+bottomXValue-maxX] == 1 || board[maxY-cornerYValue+1][5+cornerXValue-maxX] == 1){
+        return true;
+      }
+    }
     return false;
   }
+
 }
