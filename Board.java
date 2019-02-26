@@ -100,10 +100,10 @@ public class Board extends Shape{
         int x = shape.getX(k);
         int y = shape.getY(k);
         board[maxY-y][5+x-maxX] = 0;
-        // The maxY is the coordinate of the highest Y-coord on the board,
-        // and the y is the relative coordinate of a part of the shape
-        // The 5-maxX is the coordinate of the right-most X-coord on the board,
-        // and the x is the relative coordinate of a part of the shape
+        // The y is the actual coordinate of the Y-coord on the board,
+        // and the maxY is the relative coordinate of a part of the shape
+        // The 5+x is the actual coordinate of the X-coord on the board,
+        // and the maxX is the relative coordinate of a part of the shape
         }
       }
     // sets the new x-coords after moving left
@@ -179,8 +179,8 @@ public class Board extends Shape{
     for (int k = 0; k < 4; k++){
       int x = shape.getX(k);
       if ((5+x-maxX-1) < 0){
-        // The 5-maxX is the coordinate of the right-most X-coord of the shape
-        // being moved on the board and the x is the relative coordinate of a part of the shape
+        // The 5+x is the coordinate of the right-most X-coord of the shape
+        // being moved on the board and the maxX is the relative coordinate of a part of the shape
         // 5-maxX+x gives us the current point, and subutracting one gives us the point to the left
         // we can check if it's the edge by checking if this point to the left is negative
         return true;
@@ -268,8 +268,8 @@ public class Board extends Shape{
     for (int k = 0; k < 4; k++){
       int y = shape.getY(k);
       if ((maxY-y+1) > 15){
-        // The maxY is the highest Y-coord of the shape on the board,
-        // and the y is the relative coordinate of a part of the shape
+        // The y is the highest Y-coord of the shape on the board,
+        // and the maxY is the relative coordinate of a part of the shape
         // adding 1 will check one row below it. It's at the edge if one
         // of the points goes over the index 15
         return true;
