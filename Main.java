@@ -77,5 +77,11 @@ public class Main {
       }
     }
     System.out.println("Game Over! :C");
+    Scanner end = new Scanner(System.in);
+    System.out.println("Press ENTER to Exit");
+    if (end.hasNextLine()){
+        end.close();
+    }
+
   }
 }
