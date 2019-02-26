@@ -31,9 +31,10 @@ public class Main {
           board.placeShape(shape);
           System.out.println();
           board.print2D();
-          if (board.checkFullRow())
+          if (board.checkFullRow()){
             System.out.println();
             board.print2D();
+          }
           if (board.bottomCollision(shape)){
             break;
           }
@@ -64,9 +65,10 @@ public class Main {
           board.placeShape(shape);
           System.out.println();
           board.print2D();
-          if (board.checkFullRow())
-            System.out.prinln();
+          if (board.checkFullRow()){
+            System.out.println();
             board.print2D();
+          }
           if (board.bottomCollision(shape)){
             break;
           }
