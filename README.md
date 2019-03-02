@@ -5,7 +5,7 @@ This is a text-based version of tetris. The graphics are displayed on the comman
 
 Prerequisites And Instructions
 
-  1)Download the Shape.java, Board.java, Main.java from the master branch of the repository
+  1)Download the Shape.java, Board.java, Main.java in the Source-code folder of the master branch of the repository
   
   2)From the command line, compile Main.java by "javac Main.java"
   
