@@ -8,7 +8,7 @@ public class Board extends Shape{
 
   public Board() {
     // default contructor that creates empty board
-    board = new int[Constants.Rows()][Constants.Columns()];
+    board = new int[16][10];
 
   }
   /**
@@ -25,25 +25,25 @@ public class Board extends Shape{
   */
   public void placeShape(Shape shape){
       // to find the "highest block" of the shape and put it on the very top of the board
-      maxY = shape.getY(Constants.Zero());
-      for (int i = Constants.Zero(); i<Constants.MaxLengthOfTetromino(); i++){
+      maxY = shape.getY(0);
+      for (int i = 0; i<4; i++){
         if (maxY < shape.getY(i)){
           maxY = shape.getY(i);
         }
       }
       // to find the block(s) to the very right of the shape and centre the placement from there
-      maxX = shape.getX(Constants.Zero());
-      for (int j = Constants.Zero(); j < Constants.MaxLengthOfTetromino(); j++){
+      maxX = shape.getX(0);
+      for (int j = 0; j < 4; j++){
         if (maxX < shape.getX(j)){
           maxX = shape.getX(j);
         }
       }
       if (shape.getShape() != ShapeType.NoShape){
         // this if statment ensures that the shape being placed is not actually a "no shape"
-        for (int k = Constants.Zero(); k < Constants.MaxLengthOfTetromino(); k++){
+        for (int k = 0; k < 4; k++){
           int x = shape.getX(k);
           int y = shape.getY(k);
-          board[maxY-y][Constants.MiddleIndex()+x-maxX] = 1;
+          board[maxY-y][5+x-maxX] = 1;
           }
         }
       }
@@ -53,28 +53,35 @@ public class Board extends Shape{
   * @return true if one row is completely occupied, while also clearing it at the same time
   */
   public boolean checkFullRow(){
-    for (int i = Constants.Zero(); i < Constants.Rows(); i++){
-      int increment = Constants.Zero();
-      for (int j = Constants.Zero(); j < Constants.Columns(); j++){
-        if (board[i][j] != Constants.Zero()){
+    boolean cleared = false;
+    for (int i = 0; i < 16; i++){
+      int increment = 0;
+      for (int j = 0; j < 10; j++){
+        if (board[i][j] != 0){
           increment += 1;
       }
     }
-      if (increment == Constants.Columns()){
+      if (increment == 10){
         // ensures that the whole row(which has 10 columns) is occupied
-        for (int col = Constants.Zero() ; col < Constants.Columns(); col++){
-          board[i][col] = Constants.Zero();
+        for (int col = 0 ; col < 10; col++){
+          board[i][col] = 0;
         }
-        return true;
+        for (int clearedRow = i; clearedRow > 0; clearedRow--){
+          for (int col = 0; col < 10; col++){
+            board[clearedRow][col] = board[clearedRow-1][col];
+            board[clearedRow-1][col] = 0;
+          }
+        }
+        cleared = true;
       }
     }
-    return false;
+    return cleared;
   }
 
   //Prints the board with the current shapes that have been placed
   public void print2D(){
-			for (int row = Constants.Zero(); row < Constants.Rows(); row++){
-					for (int col = Constants.Zero(); col < Constants.Columns(); col++){
+			for (int row = 0; row < 16; row++){
+					for (int col = 0; col < 10; col++){
 							System.out.print(" " + board[row][col]);
 					}
 					System.out.println();
@@ -84,9 +91,9 @@ public class Board extends Shape{
   * Clears the board by filling it with zeroes
   */
   public void clearBoard() {
-    for (int i = Constants.Zero(); i < Constants.Rows(); i++){
-				for (int j = Constants.Zero(); j < Constants.Columns(); j++) {
-            board[i][j] = Constants.Zero();
+    for (int i = 0; i < 16; i++){
+				for (int j = 0; j < 10; j++) {
+            board[i][j] = 0;
           }
     }
   }
@@ -96,26 +103,26 @@ public class Board extends Shape{
   */
   public void moveLeft(Shape shape){
     if (shape.getShape() != ShapeType.NoShape){
-      for (int k = Constants.Zero(); k < Constants.MaxLengthOfTetromino(); k++){
+      for (int k = 0; k < 4; k++){
         int x = shape.getX(k);
         int y = shape.getY(k);
-        board[maxY-y][Constants.MiddleIndex()+x-maxX] = Constants.Zero();
-        // The maxY is the coordinate of the highest Y-coord on the board,
-        // and the y is the relative coordinate of a part of the shape
-        // The 5-maxX is the coordinate of the right-most X-coord on the board,
-        // and the x is the relative coordinate of a part of the shape
+        board[maxY-y][5+x-maxX] = 0;
+        // The y is the actual coordinate of the Y-coord on the board,
+        // and the maxY is the relative coordinate of a part of the shape
+        // The 5+x is the actual coordinate of the X-coord on the board,
+        // and the maxX is the relative coordinate of a part of the shape
         }
       }
     // sets the new x-coords after moving left
-    for (int x = Constants.Zero(); x < Constants.MaxLengthOfTetromino(); x++)
+    for (int x = 0; x < 4; x++)
       shape.setNewX(x, shape.getX(x)-1);
 
     //applies the shape's new coordinates to the board
     if (shape.getShape() != ShapeType.NoShape){
-      for (int k = Constants.Zero(); k < Constants.MaxLengthOfTetromino(); k++){
+      for (int k = 0; k < 4; k++){
         int x = shape.getX(k);
         int y = shape.getY(k);
-        board[maxY-y][Constants.MiddleIndex()+x-maxX] = 1;
+        board[maxY-y][5+x-maxX] = 1;
         }
       }
 
@@ -126,21 +133,21 @@ public class Board extends Shape{
   */
   public void moveRight(Shape shape){
     if (shape.getShape() != ShapeType.NoShape){
-      for (int k = Constants.Zero(); k < Constants.MaxLengthOfTetromino(); k++){
+      for (int k = 0; k < 4; k++){
         int x = shape.getX(k);
         int y = shape.getY(k);
-        board[maxY-y][Constants.MiddleIndex()+x-maxX] = Constants.Zero();
+        board[maxY-y][5+x-maxX] = 0;
         }
       }
       // changes x-coords to the new ones after moving right
-      for (int x = Constants.Zero(); x < Constants.MaxLengthOfTetromino(); x++)
+      for (int x = 0; x < 4; x++)
         shape.setNewX(x, shape.getX(x)+1);
 
       if (shape.getShape() != ShapeType.NoShape){
-        for (int k = Constants.Zero(); k < Constants.MaxLengthOfTetromino(); k++){
+        for (int k = 0; k < 4; k++){
           int x = shape.getX(k);
           int y = shape.getY(k);
-          board[maxY-y][Constants.MiddleIndex()+x-maxX] = 1;
+          board[maxY-y][5+x-maxX] = 1;
           }
         }
 
@@ -151,21 +158,21 @@ public class Board extends Shape{
    */
   public void moveDown(Shape shape){
     if (shape.getShape() != ShapeType.NoShape){
-      for (int k = Constants.Zero(); k < Constants.MaxLengthOfTetromino(); k++){
+      for (int k = 0; k < 4; k++){
         int x = shape.getX(k);
         int y = shape.getY(k);
-        board[maxY-y][Constants.MiddleIndex()+x-maxX] = Constants.Zero();
+        board[maxY-y][5+x-maxX] = 0;
         }
       }
     //sets the new y-coordinates after moving one down
-    for (int y = Constants.Zero(); y < Constants.MaxLengthOfTetromino(); y++){
+    for (int y = 0; y < 4; y++){
     shape.setNewY(y, shape.getY(y)-1);
   }
     if (shape.getShape() != ShapeType.NoShape){
-      for (int k = Constants.Zero(); k < Constants.MaxLengthOfTetromino(); k++){
+      for (int k = 0; k < 4; k++){
         int x = shape.getX(k);
         int y = shape.getY(k);
-        board[maxY-y][Constants.MiddleIndex()+x-maxX] = 1;
+        board[maxY-y][5+x-maxX] = 1;
       }
     }
   }
@@ -176,11 +183,11 @@ public class Board extends Shape{
 * @return true if the collision will happen
 */
   public boolean leftCollision(Shape shape){
-    for (int k = Constants.Zero(); k < Constants.MaxLengthOfTetromino(); k++){
+    for (int k = 0; k < 4; k++){
       int x = shape.getX(k);
-      if ((Constants.MiddleIndex()+x-maxX-1) < Constants.Zero()){
-        // The 5-maxX is the coordinate of the right-most X-coord of the shape
-        // being moved on the board and the x is the relative coordinate of a part of the shape
+      if ((5+x-maxX-1) < 0){
+        // The 5+x is the coordinate of the right-most X-coord of the shape
+        // being moved on the board and the maxX is the relative coordinate of a part of the shape
         // 5-maxX+x gives us the current point, and subutracting one gives us the point to the left
         // we can check if it's the edge by checking if this point to the left is negative
         return true;
@@ -190,9 +197,9 @@ public class Board extends Shape{
     // of the shape. We do this because the shape can have multiple left-most parts, hence
     // we check each of these to see if they collide with any shapes to the left
     ArrayList<Integer> leftMostIndex = new ArrayList<Integer>();
-    int xvalue = shape.getX(Constants.Zero());
-    leftMostIndex.add(Constants.Zero());
-    for (int index = 1; index < Constants.MaxLengthOfTetromino(); index++){
+    int xvalue = shape.getX(0);
+    leftMostIndex.add(0);
+    for (int index = 1; index < 4; index++){
       if (xvalue > shape.getX(index)){
         // if statement to make sure that we have the left-most x-coord
         xvalue = shape.getX(index);
@@ -211,7 +218,7 @@ public class Board extends Shape{
     for (int indexed : leftMostIndex){
       int yCoord = shape.getY(indexed);
       int xCoord = shape.getX(indexed);
-      if (board[maxY-yCoord][Constants.MiddleIndex()+xCoord-maxX-1] == 1){
+      if (board[maxY-yCoord][5+xCoord-maxX-1] == 1){
         return true;
       }
     }
@@ -224,18 +231,18 @@ public class Board extends Shape{
    * @return true if the collision will happen
    */
   public boolean rightCollision(Shape shape){
-    for (int k = Constants.Zero(); k < Constants.MaxLengthOfTetromino(); k++){
+    for (int k = 0; k < 4; k++){
       int x = shape.getX(k);
-      if ((Constants.MiddleIndex()+x-maxX+1) > 9){
+      if ((5+x-maxX+1) > 9){
         // similar to leftCollision, except adding 1 to check to the right. At the edge if greater than 9
         return true;
       }
     }
     // same as leftCollision, except storing indexes that give the right-most x-coord when using getX() method
     ArrayList<Integer> rightMostIndex = new ArrayList<Integer>();
-    int xvalue = shape.getX(Constants.Zero());
-    rightMostIndex.add(Constants.Zero());
-    for (int index = 1; index < Constants.MaxLengthOfTetromino(); index++){
+    int xvalue = shape.getX(0);
+    rightMostIndex.add(0);
+    for (int index = 1; index < 4; index++){
       if (xvalue < shape.getX(index)){
         xvalue = shape.getX(index);
         rightMostIndex.clear();
@@ -250,7 +257,7 @@ public class Board extends Shape{
       int yCoord = shape.getY(indexed);
       int xCoord = shape.getX(indexed);
       // we grab the relative coordinates of both x and y of a point of a shape
-      if (board[maxY-yCoord][Constants.MiddleIndex()+xCoord-maxX+1] == 1){
+      if (board[maxY-yCoord][5+xCoord-maxX+1] == 1){
         return true;
       }
     }
@@ -259,15 +266,17 @@ public class Board extends Shape{
 
   /**
    * Checks if the current shape will collide with another shape below it or the bottom edge of the board
+   * It is also used for endgame; if a new shape respawns and encounters a bottom collision right away,
+   * the game ends
    * @param shape is the current random shape being moved on the board
    * @return true if the collision will happen
    */
   public boolean bottomCollision(Shape shape){
-    for (int k = Constants.Zero(); k < Constants.MaxLengthOfTetromino(); k++){
+    for (int k = 0; k < 4; k++){
       int y = shape.getY(k);
       if ((maxY-y+1) > 15){
-        // The maxY is the highest Y-coord of the shape on the board,
-        // and the y is the relative coordinate of a part of the shape
+        // The y is the highest Y-coord of the shape on the board,
+        // and the maxY is the relative coordinate of a part of the shape
         // adding 1 will check one row below it. It's at the edge if one
         // of the points goes over the index 15
         return true;
@@ -275,9 +284,9 @@ public class Board extends Shape{
     }
     // similar to leftCollision and rightCollision, except checking the bottom-most Y-coords
     ArrayList<Integer> indexes = new ArrayList<Integer>();
-    int yvalue = shape.getY(Constants.Zero());
-    indexes.add(Constants.Zero());
-    for (int index = 1; index < Constants.MaxLengthOfTetromino(); index++){
+    int yvalue = shape.getY(0);
+    indexes.add(0);
+    for (int index = 1; index < 4; index++){
       if (yvalue > shape.getY(index)){
         yvalue = shape.getY(index);
         indexes.clear();
@@ -290,30 +299,20 @@ public class Board extends Shape{
     for (int indexing : indexes){
       int yCoord = shape.getY(indexing);
       int xCoord = shape.getX(indexing);
-      if (board[maxY-yCoord+1][Constants.MiddleIndex()+xCoord-maxX] == 1)
+      if (board[maxY-yCoord+1][5+xCoord-maxX] == 1)
         return true;
     }
+    // since z and s-shapes both have a corner that's exposed for bottom collision
+    // but isn't the lowest point of the shape, we also have to check for bottom collision
+    // at these points
     if (shape.getShape() == ShapeType.SShape || shape.getShape() == ShapeType.ZShape){
       int cornerYValue = shape.getY(2);
       int cornerXValue = shape.getX(2);
-      if (board[maxY-cornerYValue+1][Constants.MiddleIndex()+cornerXValue-maxX] == 1){
+      if (board[maxY-cornerYValue+1][5+cornerXValue-maxX] == 1){
         return true;
       }
     }
   return false;
 }
-
-  public boolean endGame(Shape shape){
-    if (shape.getShape() == ShapeType.SShape || shape.getShape() == ShapeType.ZShape){
-      int bottomYValue = shape.getY(Constants.Zero());
-      int bottomXValue = shape.getX(Constants.Zero());
-      int cornerYValue = shape.getY(2);
-      int cornerXValue = shape.getX(2);
-      if (board[maxY-bottomYValue+1][Constants.MiddleIndex()+bottomXValue-maxX] == 1 || board[maxY-cornerYValue+1][Constants.MiddleIndex()+cornerXValue-maxX] == 1){
-        return true;
-      }
-    }
-    return false;
-  }
 
 }
