@@ -11,6 +11,11 @@ public class Shape {
 		coords = new int[4][2];
 		setShape(ShapeType.NoShape);
 	}
+	public Shape (Shape copyShape) {
+		coords = new int[4][2];
+		setShape(copyShape.getShape());
+	}
+
 	/**
 	*Sets the shapetype of the object
 	*@param shape is the shape being initialized to a shapetype
@@ -93,7 +98,7 @@ public class Shape {
 	* Rotates the shape counter-clockwise
 	* @param shape This is the shape we want to rotate
 	* Still to be implemented (TBI)
-	*/
+	
   public Shape rotateLeft(Shape shape) {
 		if (tetromino == ShapeType.SquareShape)
 			return this;
@@ -105,12 +110,13 @@ public class Shape {
 			newPosition.setNewY(i, -getX(i));
 		}
 		return newPosition;
-  }
+	}
+	*/
 	/**
 	* Rotates the shape clockwise
 	* @param shape This is the shape we want to rotateLeft
 	* Still TBI
-	*/
+	
 	public Shape rotateRight(Shape shape) {
 		if (tetromino == ShapeType.SquareShape){
 			return shape;
@@ -123,4 +129,5 @@ public class Shape {
 		}
 		return newPosition;
 	}
+	*/
 }

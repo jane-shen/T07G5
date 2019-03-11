@@ -7,6 +7,7 @@ public class Main {
     Shape shape = new Shape();
     shape.setRandomShape();
     shape.setShape(shape.getShape());
+    Shape originalShape = new Shape(shape);
     board.placeShape(shape);
     System.out.println("Welcome to Tetris :)");
     System.out.println();
@@ -20,6 +21,9 @@ public class Main {
       System.out.println("Press 's' to move down");
       System.out.println("Press 'a' to move left");
       System.out.println("Press 'd' to move right");
+      System.out.println("Press 'w' to move rotate left");
+      System.out.println("Press 'e' to move rotate right");
+      
 // checks the user for inputs
       if (move.hasNextLine()){
         String input = move.nextLine();
@@ -61,6 +65,18 @@ public class Main {
             board.moveDown(shape);
           board.print2D();
         }
+        else if (input.equals("w") && !board.bottomCollision(shape)) {
+          board.rotateLeft(shape, originalShape);
+          //if (!board.bottomCollision(shape))
+            //board.moveDown(shape);
+          board.print2D();
+        }
+        else if (input.equals("e") && !board.bottomCollision(shape)) {
+          board.rotateRight(shape, originalShape);
+          //if (!board.bottomCollision(shape))
+            //board.moveDown(shape);
+          board.print2D();
+        }
         else if (board.bottomCollision(shape)){
           // if the shape hits something below it (edge, or another shape), and
           // the player attempts an invalid move after (tries going down one more,
@@ -73,6 +89,7 @@ public class Main {
           shape = new Shape();
           shape.setRandomShape();
           shape.setShape(shape.getShape());
+          originalShape = new Shape(shape);
           board.placeShape(shape);
           System.out.println();
           board.print2D();
