@@ -18,7 +18,6 @@ public class MainGame extends Canvas implements Runnable {
 	private Handler handler;
 	private Board board;
 	private Shape shape;
-	private GameStart game;
 	
 	public MainGame () {
 		shape = new Shape();
