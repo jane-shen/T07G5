@@ -37,17 +37,5 @@ public class KeyInput extends KeyAdapter {
 					System.out.println(key);
 				}
 		}
-		/** else if (board.bottomCollision(shape)) {
-			if (board.checkFullRow()) 
-				shape = new Shape();
-			else {
-				shape = new Shape();
-				shape.setRandomShape();
-				shape.setShape(shape.getShape());
-				board.placeShape(shape);
-				
-			}
-		}
-		*/
 
 }
