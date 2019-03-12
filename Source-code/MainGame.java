@@ -21,9 +21,7 @@ public class MainGame extends Canvas implements Runnable {
 	public MainGame () {
 		shape = new Shape();
 		board = new Board();
-		shape.setRandomShape();
-		shape.setShape(shape.getShape());
-		board.placeShape(shape);
+		
 		handler = new Handler();
 		this.addKeyListener(new KeyInput(handler, board, shape));
 
@@ -31,6 +29,9 @@ public class MainGame extends Canvas implements Runnable {
 	}
 
 	public synchronized void start() {
+		shape.setRandomShape();
+		shape.setShape(shape.getShape());
+		board.placeShape(shape);
 		thread = new Thread(this);
 		thread.start();
 		running = true;
@@ -85,6 +86,7 @@ public class MainGame extends Canvas implements Runnable {
 				else
 					bottomHit = true;
 				board.setDirection("");
+				board.print2D();
 				break;
 			case "right":
 				if (!board.rightCollision(shape))
@@ -94,6 +96,7 @@ public class MainGame extends Canvas implements Runnable {
 				else
 					bottomHit = true;
 				board.setDirection("");
+				board.print2D();
 				break;
 			case "down":
 				if (!board.bottomCollision(shape))
@@ -101,6 +104,7 @@ public class MainGame extends Canvas implements Runnable {
 				else
 					bottomHit = true;
 				board.setDirection("");
+				board.print2D();
 				break;
 			case "space":
 				while (!board.bottomCollision(shape))
@@ -111,6 +115,7 @@ public class MainGame extends Canvas implements Runnable {
 				shape.setShape(shape.getShape());
 				board.placeShape(shape);
 				board.checkFullRow();
+				board.print2D();
 				if (board.bottomCollision(shape))
 					endGame = true;
 			default:
@@ -123,6 +128,7 @@ public class MainGame extends Canvas implements Runnable {
 				shape.setShape(shape.getShape());
 				board.placeShape(shape);
 				board.checkFullRow();
+				board.print2D();
 				bottomHit = false;
 				if (board.bottomCollision(shape))
 					endGame = true;
