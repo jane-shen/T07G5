@@ -15,6 +15,8 @@ public class MainGame extends Canvas implements Runnable {
 	private Handler handler;
 	private Board board;
 	private Shape shape;
+	private boolean bottomHit = false;
+	private boolean endGame = false;
 
 	public MainGame () {
 		shape = new Shape();
@@ -36,6 +38,7 @@ public class MainGame extends Canvas implements Runnable {
 
 	public synchronized void stop() {
 		try {
+			render();
 			thread.join();
 			running = false;
 		}
@@ -70,12 +73,17 @@ public class MainGame extends Canvas implements Runnable {
 				frames = 0;
 			}
 
+			if (endGame)
+				break;
+			
 			switch (board.getDirection()) {
 			case "left":
 				if (!board.leftCollision(shape))
 					board.moveLeft(shape);
 				if (!board.bottomCollision(shape))
 					board.moveDown(shape);
+				else
+					bottomHit = true;
 				board.setDirection("");
 				break;
 			case "right":
@@ -83,22 +91,41 @@ public class MainGame extends Canvas implements Runnable {
 					board.moveRight(shape);
 				if (!board.bottomCollision(shape))
 					board.moveDown(shape);
+				else
+					bottomHit = true;
 				board.setDirection("");
 				break;
 			case "down":
 				if (!board.bottomCollision(shape))
 					board.moveDown(shape);
+				else
+					bottomHit = true;
 				board.setDirection("");
 				break;
 			case "space":
 				while (!board.bottomCollision(shape))
 					board.moveDown(shape);
+				board.checkFullRow();
 				shape = new Shape();
 				shape.setRandomShape();
 				shape.setShape(shape.getShape());
 				board.placeShape(shape);
+				board.checkFullRow();
+				if (board.bottomCollision(shape))
+					endGame = true;
 			default:
 				board.setDirection("");
+			}
+			if (bottomHit) {
+				board.checkFullRow();
+				shape = new Shape();
+				shape.setRandomShape();
+				shape.setShape(shape.getShape());
+				board.placeShape(shape);
+				board.checkFullRow();
+				bottomHit = false;
+				if (board.bottomCollision(shape))
+					endGame = true;
 			}
 		}
 		stop();
