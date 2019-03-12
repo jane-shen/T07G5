@@ -102,9 +102,7 @@ public class Shape {
   public Shape rotateLeft(Shape shape) {
 		if (tetromino == ShapeType.SquareShape)
 			return this;
-
 		Shape newPosition = new Shape();
-
 		for (int i = 0; i < 4 ; i++){
 			newPosition.setNewX(i, getY(i));
 			newPosition.setNewY(i, -getX(i));
@@ -121,7 +119,6 @@ public class Shape {
 		if (tetromino == ShapeType.SquareShape){
 			return shape;
 		}
-
 		Shape newPosition = new Shape();
 		for (int i = 0; i<4 ; i++){
 			newPosition.setNewX(i, -getY(i));

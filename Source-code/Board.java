@@ -5,8 +5,9 @@ public class Board extends Shape{
   private int[][] board;
   private int maxX;
   private int maxY;
+  private String direction = "";
 
-  public Board() {
+public Board() {
     // default contructor that creates empty board
     board = new int[16][10];
 
@@ -176,114 +177,7 @@ public class Board extends Shape{
       }
     }
   }
-  /**
-	* Rotates the shape counter-clockwise
-	* @param shape This is the shape we want to rotate
-	*/
-  public void rotateLeft(Shape shape, Shape originalShape) {
-    boolean rotatable = true;
-    ArrayList<Integer> originalXValues = new ArrayList<Integer>();
-    int centerX = shape.getX(2);
-    int centerY = shape.getY(2);
-    if (shape.getShape() != ShapeType.NoShape && shape.getShape() != ShapeType.SquareShape){
-      for (int k = 0; k < 4; k++){
-        int x = shape.getX(k);
-        int y = shape.getY(k);
-        board[maxY-y][5+x-maxX] = 0;
-        }
-      }
-    for (int x = 0; x < 4; x++) {
-      originalXValues.add(originalShape.getX(x));
-      originalShape.setNewX(x, -originalShape.getY(x));
-    }
 
-    for (int y = 0; y < 4; y++){
-      originalShape.setNewY(y, originalXValues.get(y));
-    }
-
-    //check if there is a block in the way of rotating
-    if (shape.getShape() != ShapeType.NoShape && shape.getShape() != ShapeType.SquareShape){
-      for (int k = 0; k < 4; k++){
-        int x = centerX + originalShape.getX(k);
-        int y = centerY + originalShape.getY(k);
-        if ((5+x-maxX) < 0 || (5+x-maxX) > 9 || (maxY-y) > 15 || (maxY - y) < 0) {
-          rotatable = false;
-        } else if ((board[1-y][5+x-maxX] == 1)) {
-          rotatable = false;
-        }
-        System.out.println(rotatable);
-      }
-    }
-    if (shape.getShape() != ShapeType.NoShape && shape.getShape() != ShapeType.SquareShape && rotatable == true){
-        for (int k = 0; k < 4; k++){
-          int x = centerX + originalShape.getX(k);
-          int y = centerY + originalShape.getY(k);
-          shape.setNewX(k, x);
-          shape.setNewY(k, y);
-          board[maxY-y][5+x-maxX] = 1;
-        }
-      }
-    //undos the rotate
-    else if (rotatable == false) {
-      for (int k = 0; k < 4; k++){
-        int x = shape.getX(k);
-        int y = shape.getY(k);
-        board[maxY-y][5+x-maxX] = 1;
-      }
-    }
-  }
-  public void rotateRight(Shape shape, Shape originalShape) {
-    boolean rotatable = true;
-    ArrayList<Integer> originalXValues = new ArrayList<Integer>();
-    int centerX = shape.getX(2);
-    int centerY = shape.getY(2);
-    if (shape.getShape() != ShapeType.NoShape && shape.getShape() != ShapeType.SquareShape){
-      for (int k = 0; k < 4; k++){
-        int x = shape.getX(k);
-        int y = shape.getY(k);
-        board[maxY-y][5+x-maxX] = 0;
-        }
-      }
-    for (int x = 0; x < 4; x++) {
-      originalXValues.add(originalShape.getX(x));
-      originalShape.setNewX(x, originalShape.getY(x));
-    }
-
-    for (int y = 0; y < 4; y++){
-      originalShape.setNewY(y, -originalXValues.get(y));
-    }
-
-    //check if there is a block in the way of rotating
-    if (shape.getShape() != ShapeType.NoShape && shape.getShape() != ShapeType.SquareShape){
-      for (int k = 0; k < 4; k++){
-        int x = centerX + originalShape.getX(k);
-        int y = centerY + originalShape.getY(k);
-        if ((5+x-maxX) < 0 || (5+x-maxX) > 9 || (maxY-y) > 15 || (maxY - y) < 0) {
-          rotatable = false;
-        } else if ((board[1-y][5+x-maxX] == 1)) {
-          rotatable = false;
-        }
-        System.out.println(rotatable);
-      }
-    }
-    if (shape.getShape() != ShapeType.NoShape && shape.getShape() != ShapeType.SquareShape && rotatable == true){
-        for (int k = 0; k < 4; k++){
-          int x = centerX + originalShape.getX(k);
-          int y = centerY + originalShape.getY(k);
-          shape.setNewX(k, x);
-          shape.setNewY(k, y);
-          board[maxY-y][5+x-maxX] = 1;
-        }
-      }
-    //undos the rotate
-    else if (rotatable == false) {
-      for (int k = 0; k < 4; k++){
-        int x = shape.getX(k);
-        int y = shape.getY(k);
-        board[maxY-y][5+x-maxX] = 1;
-      }
-    }
-}
 /**
 * Checks if moving the shape left will collide with any other shapes or the edge of the board
 * @param shape is the current random shape being moved on the board
@@ -421,5 +315,115 @@ public class Board extends Shape{
     }
   return false;
 }
+  public void rotateLeft(Shape shape, Shape originalShape) {
+	    boolean rotatable = true;
+	    ArrayList<Integer> originalXValues = new ArrayList<Integer>();
+	    int centerX = shape.getX(2);
+	    int centerY = shape.getY(2);
+	    if (shape.getShape() != ShapeType.NoShape && shape.getShape() != ShapeType.SquareShape){
+	      for (int k = 0; k < 4; k++){
+	        int x = shape.getX(k);
+	        int y = shape.getY(k);
+	        board[maxY-y][5+x-maxX] = 0;
+	        }
+	      }
+	    for (int x = 0; x < 4; x++) {
+	      originalXValues.add(originalShape.getX(x));
+	      originalShape.setNewX(x, -originalShape.getY(x));
+	    }
 
+	    for (int y = 0; y < 4; y++){
+	      originalShape.setNewY(y, originalXValues.get(y));
+	    }
+
+	    //check if there is a block in the way of rotating
+	    if (shape.getShape() != ShapeType.NoShape && shape.getShape() != ShapeType.SquareShape){
+	      for (int k = 0; k < 4; k++){
+	        int x = centerX + originalShape.getX(k);
+	        int y = centerY + originalShape.getY(k);
+	        if ((5+x-maxX) < 0 || (5+x-maxX) > 9 || (maxY-y) > 15 || (maxY - y) < 0) {
+	          rotatable = false;
+	        } else if ((board[1-y][5+x-maxX] == 1)) {
+	          rotatable = false;
+	        }
+	        System.out.println(rotatable);
+	      }
+	    }
+	    if (shape.getShape() != ShapeType.NoShape && shape.getShape() != ShapeType.SquareShape && rotatable == true){
+	        for (int k = 0; k < 4; k++){
+	          int x = centerX + originalShape.getX(k);
+	          int y = centerY + originalShape.getY(k);
+	          shape.setNewX(k, x);
+	          shape.setNewY(k, y);
+	          board[maxY-y][5+x-maxX] = 1;
+	        }
+	      }
+	    //undos the rotate
+	    else if (rotatable == false) {
+	      for (int k = 0; k < 4; k++){
+	        int x = shape.getX(k);
+	        int y = shape.getY(k);
+	        board[maxY-y][5+x-maxX] = 1;
+	      }
+	    }
+	  }
+	  public void rotateRight(Shape shape, Shape originalShape) {
+	    boolean rotatable = true;
+	    ArrayList<Integer> originalXValues = new ArrayList<Integer>();
+	    int centerX = shape.getX(2);
+	    int centerY = shape.getY(2);
+	    if (shape.getShape() != ShapeType.NoShape && shape.getShape() != ShapeType.SquareShape){
+	      for (int k = 0; k < 4; k++){
+	        int x = shape.getX(k);
+	        int y = shape.getY(k);
+	        board[maxY-y][5+x-maxX] = 0;
+	        }
+	      }
+	    for (int x = 0; x < 4; x++) {
+	      originalXValues.add(originalShape.getX(x));
+	      originalShape.setNewX(x, originalShape.getY(x));
+	    }
+
+	    for (int y = 0; y < 4; y++){
+	      originalShape.setNewY(y, -originalXValues.get(y));
+	    }
+
+	    //check if there is a block in the way of rotating
+	    if (shape.getShape() != ShapeType.NoShape && shape.getShape() != ShapeType.SquareShape){
+	      for (int k = 0; k < 4; k++){
+	        int x = centerX + originalShape.getX(k);
+	        int y = centerY + originalShape.getY(k);
+	        if ((5+x-maxX) < 0 || (5+x-maxX) > 9 || (maxY-y) > 15 || (maxY - y) < 0) {
+	          rotatable = false;
+	        } else if ((board[1-y][5+x-maxX] == 1)) {
+	          rotatable = false;
+	        }
+	        System.out.println(rotatable);
+	      }
+	    }
+	    if (shape.getShape() != ShapeType.NoShape && shape.getShape() != ShapeType.SquareShape && rotatable == true){
+	        for (int k = 0; k < 4; k++){
+	          int x = centerX + originalShape.getX(k);
+	          int y = centerY + originalShape.getY(k);
+	          shape.setNewX(k, x);
+	          shape.setNewY(k, y);
+	          board[maxY-y][5+x-maxX] = 1;
+	        }
+	      }
+	    //undos the rotate
+	    else if (rotatable == false) {
+	      for (int k = 0; k < 4; k++){
+	        int x = shape.getX(k);
+	        int y = shape.getY(k);
+	        board[maxY-y][5+x-maxX] = 1;
+	      }
+	    }
+	}
+	  public void setDirection(String direction) {
+			this.direction = direction;
+	  }
+	  
+	  public String getDirection() {
+		  	return direction;
+	  }
 }
