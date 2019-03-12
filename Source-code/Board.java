@@ -346,7 +346,6 @@ public Board() {
 	        } else if ((board[1-y][5+x-maxX] == 1)) {
 	          rotatable = false;
 	        }
-	        System.out.println(rotatable);
 	      }
 	    }
 	    if (shape.getShape() != ShapeType.NoShape && shape.getShape() != ShapeType.SquareShape && rotatable == true){
@@ -398,7 +397,6 @@ public Board() {
 	        } else if ((board[1-y][5+x-maxX] == 1)) {
 	          rotatable = false;
 	        }
-	        System.out.println(rotatable);
 	      }
 	    }
 	    if (shape.getShape() != ShapeType.NoShape && shape.getShape() != ShapeType.SquareShape && rotatable == true){
