@@ -48,7 +48,7 @@ public class highScores extends Application{
 	//int Scored = texts.score;
 	texts.setText("FIRST PLACE:");
 	// position
-	texts.setX(80);
+	texts.setX(100);
 	texts.setY(290);
 	texts.setFill(Color.WHITE);
 	texts.setFont(textFont);
@@ -60,17 +60,38 @@ public class highScores extends Application{
 	secondHighest.setText("SECOND PLACE:");
 	secondHighest.setFill(Color.WHITE);
 	secondHighest.setFont(textFont);
-	secondHighest.setX(80);
+	secondHighest.setX(100);
 	secondHighest.setY(370);
 	
 	Text thirdHighest = new Text();
 	thirdHighest.setText("THIRD PLACE:");
 	thirdHighest.setFill(Color.WHITE);
 	thirdHighest.setFont(textFont);
-	thirdHighest.setX(80);
+	thirdHighest.setX(100);
 	thirdHighest.setY(450);
 	
-    pane.getChildren().addAll(image, texts, secondHighest, thirdHighest);
+	Text firstScore = new Text();
+	firstScore.setText("900");
+	firstScore.setFill(Color.WHITE);
+	firstScore.setFont(textFont);
+	firstScore.setX(350);
+	firstScore.setY(290);
+	
+	Text secondScore = new Text();
+	secondScore.setText("700");
+	secondScore.setFill(Color.WHITE);
+	secondScore.setFont(textFont);
+	secondScore.setX(350);
+	secondScore.setY(370);
+	
+	Text thirdScore = new Text();
+	thirdScore.setText("400");
+	thirdScore.setFill(Color.WHITE);
+	thirdScore.setFont(textFont);
+	thirdScore.setX(350);
+	thirdScore.setY(450);
+	
+    pane.getChildren().addAll(image, texts, secondHighest, thirdHighest, firstScore, secondScore, thirdScore);
     scene.setRoot(pane);
     stage.setScene(scene);
     stage.show();
