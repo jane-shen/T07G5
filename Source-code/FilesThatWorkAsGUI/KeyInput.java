@@ -31,6 +31,10 @@ public class KeyInput extends KeyAdapter {
 				case KeyEvent.VK_SPACE:
 					board.setDirection("space");
 					System.out.println(key);
+					break;
+				case KeyEvent.VK_ENTER:
+					board.setDirection("enter");
+					System.out.println(key);
 				}
 		}
 

@@ -16,23 +16,24 @@ public class MainGame extends Canvas implements Runnable {
 
 	private Thread thread;
 	private boolean running = false;
-	private Handler handler;
+	private static boolean bottomHit = false;
 	private Board board;
 	private Shape shape;
 	private Shape originalShape;
-	private boolean bottomHit = false;
-	private boolean endGame = false;
 	private BufferedImage img;
+	private Intro introScreen;
 	private HUD hud;
 	private EndGame gameOver;
+	private int timeAfterLoss;
 	
 	public enum GameState{
 		INTRO,
 		START,
-		ENDGAME;
+		ENDGAME,
+		PAUSE;
 	}
 	
-	public GameState state = GameState.START;
+	public static GameState state = GameState.START;
 
 	public MainGame () throws IOException {
 		shape = new Shape();
@@ -40,8 +41,8 @@ public class MainGame extends Canvas implements Runnable {
 		board = new Board();
 		hud = new HUD();
 		gameOver = new EndGame();
+		introScreen = new Intro();
 		
-		handler = new Handler();
 		this.addKeyListener(new KeyInput(board));
 
 		new Window(WIDTH, HEIGHT, "Tetros KMS", this);
@@ -53,7 +54,7 @@ public class MainGame extends Canvas implements Runnable {
 		    img = ImageIO.read(new URL("https://raw.githubusercontent.com/jshenny/T07G5/master/Source-code/resources/background.png"));
 		} catch (IOException e) {
 		}
-		
+		timeAfterLoss = 0;
 		shape.setRandomShape();
 		shape.setShape(shape.getShape());
 		originalShape = new Shape(shape);
@@ -68,6 +69,7 @@ public class MainGame extends Canvas implements Runnable {
 			render();
 			thread.interrupt();
 			running = false;
+			System.exit(1);
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -80,8 +82,7 @@ public class MainGame extends Canvas implements Runnable {
 		double ns = 1000000000 / amountOfTicks;
 		double delta = 0;
 		long timer = System.currentTimeMillis();
-		// int frames = 0;
-		// int time = 120;
+		int frames = 0;
 		while (running) {
 			long now = System.nanoTime();
 			delta += (now - lastTime) / ns;
@@ -94,91 +95,29 @@ public class MainGame extends Canvas implements Runnable {
 				try {
 					render();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				// frames++;
+				frames++;
 			}
 
 			if (System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-				hud.tick();
-				// System.out.println("FPS: " + frames);
-				// frames = 0;
-				// time--;
-				// board.print2D();
-				
-				if (!board.bottomCollision(shape))
-					board.moveDown(shape);
-				else
-					bottomHit = true;
+				System.out.println("FPS: " + frames);
+				frames = 0;
+
+				if (state == GameState.START) {
+					if (!board.bottomCollision(shape))
+						board.moveDown(shape);
+					else
+						bottomHit = true;
+				}
+				else if (state == GameState.ENDGAME)
+					timeAfterLoss++;
 			}
 			
-			if (endGame)
-				state = GameState.ENDGAME;
+			if (state == GameState.START || state == GameState.PAUSE) 
+				Moves.makeMove(this);
 			
-			switch (board.getDirection()) {
-			case "left":
-				if (!board.leftCollision(shape))
-					board.moveLeft(shape);
-				board.setDirection("");
-				board.print2D();
-				break;
-			case "right":
-				if (!board.rightCollision(shape))
-					board.moveRight(shape);
-				board.setDirection("");
-				board.print2D();
-				break;
-			case "down":
-				if (!board.bottomCollision(shape))
-					board.moveDown(shape);
-				else
-					bottomHit = true;
-				board.setDirection("");
-				board.print2D();
-				break;
-			case "space":
-				while (!board.bottomCollision(shape))
-					board.moveDown(shape);
-				board.checkFullRow();
-				board.setBoard();
-				shape = new Shape();
-				shape.setRandomShape();
-				shape.setShape(shape.getShape());
-				originalShape = new Shape(shape);
-				board.placeShape(shape);
-				board.checkFullRow();
-				board.print2D();
-				if (board.bottomCollision(shape))
-					endGame = true;
-				board.setDirection("");
-				break;
-			case "up":
-				if (!board.bottomCollision(shape))
-					board.rotateLeft(shape, originalShape);
-				else
-					bottomHit = true;
-				board.setDirection("");
-				board.print2D();
-				break;
-			default:
-				board.setDirection("");
-			}
-			if (bottomHit) {
-				board.checkFullRow();
-				board.setBoard();
-				shape = new Shape();
-				shape.setRandomShape();
-				shape.setShape(shape.getShape());
-				originalShape = new Shape(shape);
-				board.placeShape(shape);
-				board.checkFullRow();
-				board.print2D();
-				bottomHit = false;
-				if (board.bottomCollision(shape))
-					endGame = true;
-			}
 		}
 		stop();
 	}
@@ -186,8 +125,11 @@ public class MainGame extends Canvas implements Runnable {
 	private void tick() {
 		if (state == GameState.ENDGAME)
 			gameOver.tick();
-		
-		handler.tick();
+		else if (state == GameState.INTRO || state == GameState.PAUSE)
+			introScreen.tick();
+		else if (state == GameState.START)
+			hud.tick();
+
 	}
 
 	private void render() throws IOException {
@@ -198,7 +140,7 @@ public class MainGame extends Canvas implements Runnable {
 		}
 		
 		Graphics g = bs.getDrawGraphics();
-		
+			
 		g.drawImage(img, 5, 5, this);
 		
 		g.setColor(Color.DARK_GRAY);
@@ -216,14 +158,17 @@ public class MainGame extends Canvas implements Runnable {
 			for (int l = 0; l < board.getBoard()[0].length; l++) {
 				if (board.getBoard()[k][l] != 0)
 					g.fill3DRect(l * 50 + 9, k * 50 + 4, 48, 48, true);
-			}
-		
-		handler.render(g);
-		
+		}
+
 		if (state == GameState.START)
 			hud.render(g);
-		else if(state == GameState.ENDGAME)
-			gameOver.render(g);
+		else if (state == GameState.ENDGAME) {
+			if (timeAfterLoss > 4)
+				gameOver.render(g);
+			else hud.render(g);
+		}
+		else if (state == GameState.INTRO || state == GameState.PAUSE)
+			introScreen.render(g);
 		
 		g.dispose();
 		bs.show();
@@ -237,6 +182,41 @@ public class MainGame extends Canvas implements Runnable {
 			return min;
 		else
 			return val;
+	}
+	
+	public void setBottomHit(boolean value) {
+		bottomHit = value;
+	}
+	
+	public boolean isBottomHit() {
+		return bottomHit;
+	}
+	
+	public void setNewShape() {
+		shape = new Shape();
+	}
+	
+	public Shape getMainShape() {
+		return shape;
+	}
+	
+	public Board getBoard() {
+		return board;
+	}
+	
+	public void enterPressed() {
+		if (state == GameState.PAUSE)
+			state = GameState.START;
+		else if (state == GameState.START)
+			state = GameState.PAUSE;
+	}	
+	
+	public void setOrigShape() {
+		originalShape = new Shape(shape);
+	}
+	
+	public Shape getOrigShape() {
+		return originalShape;
 	}
 		
 }

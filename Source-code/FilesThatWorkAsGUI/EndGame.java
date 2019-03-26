@@ -14,9 +14,9 @@ public class EndGame {
 	
 	public void render(Graphics g) throws IOException {
 		BufferedImage highscores = ImageIO.read(new File("C:\\Users\\gerar\\Desktop\\TeamProject\\TProject\\src\\resources\\highscore.png"));
-		g.setColor(Color.black);
+		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, 1000, 1000);
 		
-		g.drawImage(highscores, 50, 0, null);
+		g.drawImage(highscores, 50, 5, null);
 	}
 }

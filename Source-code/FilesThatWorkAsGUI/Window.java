@@ -18,7 +18,7 @@ public class Window extends Canvas{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -8255319694373975038L;
+	private static final long serialVersionUID = -8719665399369298571L;
 
 	public Window (int width, int height, String title, MainGame game) throws IOException{
 		JFrame introFrame = new JFrame();
