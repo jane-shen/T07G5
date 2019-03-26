@@ -36,7 +36,7 @@ public class Main {
             System.out.println();
             board.print2D();
           }
-          board.negBoard();
+          board.setBoard();
           shape = new Shape();
           shape.setRandomShape();
           shape.setShape(shape.getShape());
@@ -88,7 +88,7 @@ public class Main {
             System.out.println();
             board.print2D();
           }
-          board.negBoard();
+          board.setBoard();
           shape = new Shape();
           shape.setRandomShape();
           shape.setShape(shape.getShape());
