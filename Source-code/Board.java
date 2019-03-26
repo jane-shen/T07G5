@@ -7,7 +7,7 @@ public class Board extends Shape{
   private int maxY;
   private String direction = "";
 
-public Board() {
+  public Board() {
     // default contructor that creates empty board
     board = new int[16][10];
 
@@ -219,7 +219,7 @@ public Board() {
     for (int indexed : leftMostIndex){
       int yCoord = shape.getY(indexed);
       int xCoord = shape.getX(indexed);
-      if (board[maxY-yCoord][5+xCoord-maxX-1] == 1){
+      if (board[maxY-yCoord][5+xCoord-maxX-1] == 2){
         return true;
       }
     }
@@ -258,7 +258,7 @@ public Board() {
       int yCoord = shape.getY(indexed);
       int xCoord = shape.getX(indexed);
       // we grab the relative coordinates of both x and y of a point of a shape
-      if (board[maxY-yCoord][5+xCoord-maxX+1] == 1){
+      if (board[maxY-yCoord][5+xCoord-maxX+1] == 2){
         return true;
       }
     }
@@ -287,6 +287,7 @@ public Board() {
     ArrayList<Integer> indexes = new ArrayList<Integer>();
     int yvalue = shape.getY(0);
     indexes.add(0);
+    /*
     for (int index = 1; index < 4; index++){
       if (yvalue > shape.getY(index)){
         yvalue = shape.getY(index);
@@ -300,12 +301,20 @@ public Board() {
     for (int indexing : indexes){
       int yCoord = shape.getY(indexing);
       int xCoord = shape.getX(indexing);
-      if (board[maxY-yCoord+1][5+xCoord-maxX] == 1)
+      if (board[maxY-yCoord+1][5+xCoord-maxX] == 2)
+        return true;
+    }
+    */
+    for (int k = 0; k < 4; k++){
+      int yCoord = shape.getY(k);
+      int xCoord = shape.getX(k);
+      if (board[maxY-yCoord+1][5+xCoord-maxX] == 2)
         return true;
     }
     // since z and s-shapes both have a corner that's exposed for bottom collision
     // but isn't the lowest point of the shape, we also have to check for bottom collision
     // at these points
+    /*
     if (shape.getShape() == ShapeType.SShape || shape.getShape() == ShapeType.ZShape){
       int cornerYValue = shape.getY(2);
       int cornerXValue = shape.getX(2);
@@ -313,13 +322,21 @@ public Board() {
         return true;
       }
     }
+     */
   return false;
 }
   public void rotateLeft(Shape shape, Shape originalShape) {
 	    boolean rotatable = true;
 	    ArrayList<Integer> originalXValues = new ArrayList<Integer>();
-	    int centerX = shape.getX(2);
-	    int centerY = shape.getY(2);
+	    int centerX;
+	    int centerY;
+	    if (shape.getShape() != ShapeType.TShape) {
+		    centerX = shape.getX(2);
+		    centerY = shape.getY(2);
+	    } else {
+	    	centerX = shape.getX(1);
+	    	centerY = shape.getY(1);
+	    }
 	    if (shape.getShape() != ShapeType.NoShape && shape.getShape() != ShapeType.SquareShape){
 	      for (int k = 0; k < 4; k++){
 	        int x = shape.getX(k);
@@ -343,7 +360,7 @@ public Board() {
 	        int y = centerY + originalShape.getY(k);
 	        if ((5+x-maxX) < 0 || (5+x-maxX) > 9 || (maxY-y) > 15 || (maxY - y) < 0) {
 	          rotatable = false;
-	        } else if ((board[1-y][5+x-maxX] == 1)) {
+	        } else if ((board[maxY-y][5+x-maxX] == 2)) {
 	          rotatable = false;
 	        }
 	      }
@@ -369,8 +386,15 @@ public Board() {
 	  public void rotateRight(Shape shape, Shape originalShape) {
 	    boolean rotatable = true;
 	    ArrayList<Integer> originalXValues = new ArrayList<Integer>();
-	    int centerX = shape.getX(2);
-	    int centerY = shape.getY(2);
+	    int centerX;
+	    int centerY;
+	    if (shape.getShape() != ShapeType.TShape) {
+		    centerX = shape.getX(2);
+		    centerY = shape.getY(2);
+	    } else {
+	    	centerX = shape.getX(1);
+	    	centerY = shape.getY(1);
+	    }
 	    if (shape.getShape() != ShapeType.NoShape && shape.getShape() != ShapeType.SquareShape){
 	      for (int k = 0; k < 4; k++){
 	        int x = shape.getX(k);
@@ -394,7 +418,7 @@ public Board() {
 	        int y = centerY + originalShape.getY(k);
 	        if ((5+x-maxX) < 0 || (5+x-maxX) > 9 || (maxY-y) > 15 || (maxY - y) < 0) {
 	          rotatable = false;
-	        } else if ((board[1-y][5+x-maxX] == 1)) {
+	        } else if ((board[1-y][5+x-maxX] == 2)) {
 	          rotatable = false;
 	        }
 	      }
@@ -423,5 +447,14 @@ public Board() {
 	  
 	  public String getDirection() {
 		  	return direction;
+	  }
+	  public void negBoard() {
+		  for (int row = 0; row < 16; row++){
+				for (int col = 0; col < 10; col++){
+					if (board[row][col] == 1) {
+						board[row][col] = 2;
+					}
+				}
+		  }
 	  }
 }

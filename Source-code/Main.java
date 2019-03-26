@@ -36,9 +36,11 @@ public class Main {
             System.out.println();
             board.print2D();
           }
+          board.negBoard();
           shape = new Shape();
           shape.setRandomShape();
           shape.setShape(shape.getShape());
+          originalShape = new Shape(shape);
           board.placeShape(shape);
           System.out.println();
           board.print2D();
@@ -77,7 +79,7 @@ public class Main {
             //board.moveDown(shape);
           board.print2D();
         }
-        else if (board.bottomCollision(shape)){
+        if (board.bottomCollision(shape)){
           // if the shape hits something below it (edge, or another shape), and
           // the player attempts an invalid move after (tries going down one more,
           // moves to the left/right, but collides, or inputs an invalid key)
@@ -86,6 +88,7 @@ public class Main {
             System.out.println();
             board.print2D();
           }
+          board.negBoard();
           shape = new Shape();
           shape.setRandomShape();
           shape.setShape(shape.getShape());
