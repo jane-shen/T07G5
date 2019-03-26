@@ -6,6 +6,7 @@ public class Board extends Shape{
   private int maxX;
   private int maxY;
   private String direction = "";
+  private int score;
 
   public Board() {
     // default contructor that creates empty board
@@ -73,6 +74,7 @@ public class Board extends Shape{
             board[clearedRow-1][col] = 0;
           }
         }
+        updateScore();
         cleared = true;
       }
     }
@@ -84,9 +86,10 @@ public class Board extends Shape{
 			for (int row = 0; row < 16; row++){
 					for (int col = 0; col < 10; col++){
 							System.out.print(" " + board[row][col]);
-					}
+          }
 					System.out.println();
-			}
+      }
+      printScore();
 	}
   /**
   * Clears the board by filling it with zeroes
@@ -283,46 +286,14 @@ public class Board extends Shape{
         return true;
       }
     }
-    // similar to leftCollision and rightCollision, except checking the bottom-most Y-coords
-    ArrayList<Integer> indexes = new ArrayList<Integer>();
-    int yvalue = shape.getY(0);
-    indexes.add(0);
-    /*
-    for (int index = 1; index < 4; index++){
-      if (yvalue > shape.getY(index)){
-        yvalue = shape.getY(index);
-        indexes.clear();
-        indexes.add(index);
-      }
-      else if (yvalue == shape.getY(index)){
-        indexes.add(index);
-      }
-    }
-    for (int indexing : indexes){
-      int yCoord = shape.getY(indexing);
-      int xCoord = shape.getX(indexing);
-      if (board[maxY-yCoord+1][5+xCoord-maxX] == 2)
-        return true;
-    }
-    */
+
     for (int k = 0; k < 4; k++){
       int yCoord = shape.getY(k);
       int xCoord = shape.getX(k);
       if (board[maxY-yCoord+1][5+xCoord-maxX] == 2)
         return true;
     }
-    // since z and s-shapes both have a corner that's exposed for bottom collision
-    // but isn't the lowest point of the shape, we also have to check for bottom collision
-    // at these points
-    /*
-    if (shape.getShape() == ShapeType.SShape || shape.getShape() == ShapeType.ZShape){
-      int cornerYValue = shape.getY(2);
-      int cornerXValue = shape.getX(2);
-      if (board[maxY-cornerYValue+1][5+cornerXValue-maxX] == 1){
-        return true;
-      }
-    }
-     */
+
   return false;
 }
   public void rotateLeft(Shape shape, Shape originalShape) {
@@ -448,7 +419,7 @@ public class Board extends Shape{
 	  public String getDirection() {
 		  	return direction;
 	  }
-	  public void negBoard() {
+	  public void setBoard() {
 		  for (int row = 0; row < 16; row++){
 				for (int col = 0; col < 10; col++){
 					if (board[row][col] == 1) {
@@ -456,5 +427,11 @@ public class Board extends Shape{
 					}
 				}
 		  }
-	  }
+    }
+    public void updateScore() {
+      score += 50;
+    }
+    public void printScore() {
+      System.out.println("Score: " + score);
+    }
 }
