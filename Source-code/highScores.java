@@ -32,11 +32,23 @@ public class highScores extends Application{
   public void start(Stage stage) throws Exception{
  	
     stage.setTitle("Score Board");
-    stage.setWidth(514);
-    stage.setHeight(535);
+    stage.setWidth(600);
+    stage.setHeight(800);
     Pane pane = new Pane();
 
     Scene scene = new Scene(new Group());
+	
+	//DONE BUTTON 
+	Node okayButton;
+    ImageView okay = new ImageView(new Image("https://github.com/jshenny/T07G5/blob/master/OKAY.png?raw=true"));
+    okay.setFitHeight(70);
+    okay.setFitWidth(125);
+    okayButton = okay;
+    okayButton.setTranslateX(220);
+    okayButton.setTranslateY(620);
+    okayButton.setOnMouseClicked(event -> System.out.println("OK"));
+	
+	
 
     final ImageView image = new ImageView();
     Image tetrisImage = new Image("https://github.com/jshenny/T07G5/blob/master/tetros%20high%20score.png?raw=true");
@@ -44,54 +56,52 @@ public class highScores extends Application{
 	
 	//new scorer
 	Text texts = new Text();
-	Font textFont = new Font("Stencil", 24);
+	Font textFont = new Font("Courier New", 40);
 	//int Scored = texts.score;
 	texts.setText("FIRST PLACE:");
 	// position
 	texts.setX(100);
-	texts.setY(290);
+	texts.setY(350);
 	texts.setFill(Color.WHITE);
 	texts.setFont(textFont);
-	//Text highestScorersScore = new Text("300");
-	//highestScorersScore.setFill(Color.BLACK);
-	//highestScorersScore.setFont(textFont);
-	//textFlow.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+
+	
 	Text secondHighest = new Text();
 	secondHighest.setText("SECOND PLACE:");
 	secondHighest.setFill(Color.WHITE);
 	secondHighest.setFont(textFont);
 	secondHighest.setX(100);
-	secondHighest.setY(370);
+	secondHighest.setY(430);
 	
 	Text thirdHighest = new Text();
 	thirdHighest.setText("THIRD PLACE:");
 	thirdHighest.setFill(Color.WHITE);
 	thirdHighest.setFont(textFont);
 	thirdHighest.setX(100);
-	thirdHighest.setY(450);
+	thirdHighest.setY(510);
 	
 	Text firstScore = new Text();
 	firstScore.setText("900");
 	firstScore.setFill(Color.WHITE);
 	firstScore.setFont(textFont);
-	firstScore.setX(350);
-	firstScore.setY(290);
+	firstScore.setX(420);
+	firstScore.setY(350);
 	
 	Text secondScore = new Text();
 	secondScore.setText("700");
 	secondScore.setFill(Color.WHITE);
 	secondScore.setFont(textFont);
-	secondScore.setX(350);
-	secondScore.setY(370);
+	secondScore.setX(420);
+	secondScore.setY(430);
 	
 	Text thirdScore = new Text();
 	thirdScore.setText("400");
 	thirdScore.setFill(Color.WHITE);
 	thirdScore.setFont(textFont);
-	thirdScore.setX(350);
-	thirdScore.setY(450);
+	thirdScore.setX(420);
+	thirdScore.setY(510);
 	
-    pane.getChildren().addAll(image, texts, secondHighest, thirdHighest, firstScore, secondScore, thirdScore);
+    pane.getChildren().addAll(image, okayButton, texts, secondHighest, thirdHighest, firstScore, secondScore, thirdScore);
     scene.setRoot(pane);
     stage.setScene(scene);
     stage.show();
