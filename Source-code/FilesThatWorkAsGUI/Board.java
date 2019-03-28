@@ -6,11 +6,12 @@ public class Board extends Shape{
   private int maxY;
   private String direction = "";
 
+// default constructor that creates empty board
 public Board() {
-    // default constructor that creates empty board
     board = new int[16][10];
-
   }
+
+
   /**
   * Obtains the board of the Board object
   * @return the board
@@ -18,6 +19,7 @@ public Board() {
   public int[][] getBoard(){
     return board;
   }
+
 
   /**
   * Places a certain shape on the board
@@ -47,6 +49,7 @@ public Board() {
           }
         }
       }
+
 
   /**
   * Checks if a row has been completely filled
@@ -78,6 +81,7 @@ public Board() {
     return cleared;
   }
 
+
   //Prints the board with the current shapes that have been placed
   public void print2D(){
 		for (int row = 0; row < 16; row++){
@@ -87,6 +91,8 @@ public Board() {
 				System.out.println();
 			}
 	}
+
+
   /**
   * Clears the board by filling it with zeroes
   */
@@ -94,9 +100,11 @@ public Board() {
     for (int i = 0; i < 16; i++){
 				for (int j = 0; j < 10; j++) {
             board[i][j] = 0;
-          }
+      }
     }
   }
+
+
   /**
   * Moves the shape one space to the left
   *@param shape is the random shape that is placed on the board
@@ -125,8 +133,9 @@ public Board() {
         board[maxY-y][5+x-maxX] = 1;
         }
       }
+    }
 
-  }
+
   /**
   * Moves the shape one space to the right
   * @param shape is the current random shape being moved on the board
@@ -150,8 +159,9 @@ public Board() {
           board[maxY-y][5+x-maxX] = 1;
           }
         }
+      }
 
-  }
+
   /**
    *Moves the shape one space down
    *@param shape is the current random shape being moved on the board
@@ -176,6 +186,8 @@ public Board() {
       }
     }
   }
+
+
 
 /**
 * Checks if moving the shape left will collide with any other shapes or the edge of the board
@@ -205,6 +217,8 @@ public Board() {
     return false;
   }
 
+
+
   /**
    * Checks if the current shape will collide with another shape on its right or the right edge of the board
    * @param shape is the current random shape being moved on the board
@@ -224,6 +238,7 @@ public Board() {
     }
     return false;
   }
+
 
   /**
    * Checks if the current shape will collide with another shape below it or the bottom edge of the board
@@ -248,7 +263,10 @@ public Board() {
     }
       return false;
     }
-  
+
+
+
+  // this is the method that is responsible for rotating the block to the left
   public void rotateLeft(Shape shape, Shape originalShape) {
 	    boolean rotatable = true;
 	    ArrayList<Integer> originalXValues = new ArrayList<Integer>();
@@ -262,6 +280,7 @@ public Board() {
 	        }
 	      }
 	    for (int x = 0; x < 4; x++) {
+        //this is makes the y value of the given x negative which is responsible for flipping
 	      originalXValues.add(originalShape.getX(x));
 	      originalShape.setNewX(x, -originalShape.getY(x));
 	    }
@@ -300,6 +319,10 @@ public Board() {
 	      }
 	    }
 	  }
+
+
+
+    //this method is responsible for rotating the block to the right
 	  public void rotateRight(Shape shape, Shape originalShape) {
 	    boolean rotatable = true;
 	    ArrayList<Integer> originalXValues = new ArrayList<Integer>();
@@ -343,7 +366,7 @@ public Board() {
 	          board[maxY-y][5+x-maxX] = 1;
 	        }
 	      }
-	    //undos the rotate
+	    //undoes the rotate
 	    else if (rotatable == false) {
 	      for (int k = 0; k < 4; k++){
 	        int x = shape.getX(k);
@@ -352,6 +375,8 @@ public Board() {
 	      }
 	    }
 	}
+
+  
 	  public void setDirection(String direction) {
 			this.direction = direction;
 	  }
@@ -359,7 +384,7 @@ public Board() {
 	  public String getDirection() {
 		  	return direction;
 	  }
-	  
+
 	  public void setBoard() {
 		  for (int row = 0; row<16 ; row++)
 			  for (int col = 0; col<10 ; col++)
