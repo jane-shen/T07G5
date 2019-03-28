@@ -3,7 +3,8 @@ import java.util.Scanner;
 public class GameStart {
 	private Board board;
 	private Shape shape;
-	
+
+	//this initiates the game printing out the board and picks a random shape to start off the game
 	public void startGame(Board board, Shape shape) {
 		this.board = new Board();
 	    this.shape = new Shape();
@@ -24,10 +25,12 @@ public class GameStart {
 	      if (move.hasNextLine()){
 	        String input = move.nextLine();
 
+					//when the spacebar is clicked, the whole block will go all the way down
 	        if (input.equals(" ")){
 	          while (!board.bottomCollision(shape))
 	            board.moveDown(shape);
-	            
+
+							//this checks continuously to check if there is a full row filled with blocks
 	          if (board.checkFullRow()){
 	            System.out.println();
 	            board.print2D();
@@ -39,18 +42,23 @@ public class GameStart {
 	          System.out.println();
 	          board.print2D();
 
+						//breaks the loop once the there is an expected collison under the block
 	          if (board.bottomCollision(shape))
 	            break;
 	        }
+
 	        else if (input.equals("s") && !board.bottomCollision(shape)){
 	            // when "s" is pressed, the shape will move down, but only if no collision will occur
 	          board.moveDown(shape);
 	          board.print2D();
 	        }
+
 	        else if (input.equals("a") && !board.leftCollision(shape)){
 	            // when "a" is pressed, the shape will move to the left, but only if no collision will occur
 	          board.moveLeft(shape);
+
 	          if (!board.bottomCollision(shape))
+						//allows the block to go down when there is no collision
 	            board.moveDown(shape);
 	          board.print2D();
 	        }
