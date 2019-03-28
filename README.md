@@ -2,7 +2,7 @@
 Tetros
 
 This project is for the class CPSC 233 Winter 2019 at the University of Calgary. This is specific to Winter 2019 Lecture 2 taught by Abdelghani Geurbas.
-Tetros is an animation game allows players to rotate falling blocks strategically to clear through rows and gain points as they go. This is a GUI version of tetris. The graphics are displayed on the command prompt and on a pop up tab and user inputs are required to play the game.
+Tetros is an animation game allows players to rotate falling blocks strategically to clear through rows and gain points as they go. This is a GUI version of tetris. The graphics can be accessed through the command prompt and are seen on a pop up tab and user inputs are required to play the game.
 
 Getting Started
 
