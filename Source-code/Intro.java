@@ -13,6 +13,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.paint.Color;
 
 public class Intro extends Application{
 
@@ -21,6 +23,10 @@ public class Intro extends Application{
   }
 
   public void start(Stage stage) throws Exception{
+    Rectangle WhiteBackground = new Rectangle(190,257,131,76);
+    WhiteBackground.setFill(Color.WHITE);
+
+
     Node playButton;
     ImageView play = new ImageView(new Image("https://github.com/jshenny/T07G5/blob/master/PLAY.png?raw=true"));
     play.setFitHeight(70);
@@ -42,7 +48,7 @@ public class Intro extends Application{
     Image tetrisImage = new Image("https://github.com/jshenny/T07G5/blob/master/TETROS.png?raw=true");
     image.setImage(tetrisImage);
 
-    pane.getChildren().addAll(image, playButton);
+    pane.getChildren().addAll(image,WhiteBackground, playButton);
     scene.setRoot(pane);
     stage.setScene(scene);
     stage.show();
