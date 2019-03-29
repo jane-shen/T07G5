@@ -1,0 +1,13 @@
+The purpose of Testing in our game is to ensure that:
+  1. each block is in proper place in the array or in the box
+  2. each block does not collide with another block 
+  3. all methods work properly such as collision detection, rotation, and movements
+  
+  The test that we used in our junit test
+  1) testInitialPosition
+   - this checks if a block is in perfectly in the middle as soon as it respawns
+   - What we do in the test is we check if each block is in the correct index in the array(board)
+   
+   2)testMoveDown
+   -  this checks the method moveDown() if it correctly moves the block down by one row
+   - what we do in the this is, we call the method moveDown()
