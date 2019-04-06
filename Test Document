@@ -24,16 +24,36 @@ The purpose of Testing in our game is to ensure that:
       by one column( or the x coordinates increased by one)
       
    5)testLeftCollision()
-   - this checks the method leftCollision(),which is a boolean, is correct and if the indexes of the block will change
-   - the indexes of the block should not change because there is a block on its left
+   - this checks the method leftCollision(),which is a boolean
+   - if leftCollision() is true, the indexes of the block should not change because there is a block on its left
    - what we do here is, we call the method leftcollision() , and we test if the indexes of the block will change. In order
     to pass this test, the indexes should remain unchanged.
     
     6)testRightCollsion()
-    - this checks the method rightCollision(), which is a boolean, is correct ad if the indexes of the block will change
+    - this checks the method rightCollision(), which is a boolean
     - it is expected that the indexes of the block will not change because there is a block on its right
     - what we do in here is, we call the method rightCollision(), and we test if the indexes of the block will change. In order
       to pass this test, the indexes should remain unchanged.
+      
+     7)testBottomCollision()
+     - this checks the method bottomCollision(), which is a boolean 
+     - if bottomCollision is true, the indexes of the block should not change because there is a block below it
+     - in order to pass this test, the indexes of the block should remain unchanged when the boolean is true
+     
+     8) testRotateRight()
+     - this checks if the method rotateRight() works perfectly
+     - the indexes of the block should be in the right place when the method rotateRight() is called
+     
+     9) test RotateLeft()
+     - this checks if the method rotateLeft() works perfectly
+     - the indexes of the block should be in the right place when the method rotateLeft() is called
+     
+     10) testClearRow()
+     - this checks if the method checkFullRow clears a row filled with blocks
+     - when a row if completely filled with blocks, that row should clear so that the blocks above it will move down by how rows have been cleared
+      
+      
+      
       
   
  
