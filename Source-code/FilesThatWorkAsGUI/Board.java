@@ -1,10 +1,12 @@
 import java.util.ArrayList;
+import java.io.*;
 
 public class Board extends Shape{
   private int[][] board;
   private int maxX;
   private int maxY;
   private String direction = "";
+  private int scores = 0;
 
 // default constructor that creates empty board
 public Board() {
@@ -18,6 +20,10 @@ public Board() {
   */
   public int[][] getBoard(){
     return board;
+  }
+
+  public int getScore(){
+    return scores;
   }
 
 
@@ -76,6 +82,7 @@ public Board() {
           }
         }
         cleared = true;
+        scores += 40;
       }
     }
     return cleared;
@@ -376,7 +383,7 @@ public Board() {
 	    }
 	}
 
-  
+
 	  public void setDirection(String direction) {
 			this.direction = direction;
 	  }
