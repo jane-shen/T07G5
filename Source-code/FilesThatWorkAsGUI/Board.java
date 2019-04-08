@@ -6,7 +6,7 @@ public class Board extends Shape{
   private int maxX;
   private int maxY;
   private String direction = "";
-  private int scores = 0;
+  private int score = 0;
 
 // default constructor that creates empty board
 public Board() {
@@ -20,10 +20,6 @@ public Board() {
   */
   public int[][] getBoard(){
     return board;
-  }
-
-  public int getScore(){
-    return scores;
   }
 
 
@@ -81,8 +77,9 @@ public Board() {
             board[clearedRow-1][col] = 0;
           }
         }
+        updateScore();
+        System.out.println(score);
         cleared = true;
-        scores += 40;
       }
     }
     return cleared;
@@ -382,16 +379,35 @@ public Board() {
 	      }
 	    }
 	}
-
-
+  
 	  public void setDirection(String direction) {
 			this.direction = direction;
 	  }
 
 	  public String getDirection() {
 		  	return direction;
-	  }
-
+    }
+    
+    public void updateScore() {
+      score += 40;
+    }
+    public int getScore() {
+      return score;
+    }
+    public void saveScore() {
+      try {
+    	File file = new File("highscores.txt");
+    	String fileName = "highscores.txt";
+    	if (!file.exists()) {
+    		file.createNewFile();
+    	}
+		PrintWriter output = new PrintWriter(new BufferedWriter(new FileWriter(fileName, true)));
+        output.println(score);
+        output.close();
+        } catch (Exception e) {
+          
+        }
+    }
 	  public void setBoard() {
 		  for (int row = 0; row<16 ; row++)
 			  for (int col = 0; col<10 ; col++)
