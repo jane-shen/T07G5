@@ -1,56 +1,31 @@
-import javafx.application.Application;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import javafx.scene.layout.GridPane;
-import java.io.FileInputStream;
-import javafx.event.EventHandler;
-import javafx.scene.control.Button;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.Node;
-import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.paint.Color;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 
-public class Intro extends Application{
+import javax.imageio.ImageIO;
 
-  public static void main(String[] args){
-    launch(args);
-  }
+public class Intro {
 
-  public void start(Stage stage) throws Exception{
-    Rectangle WhiteBackground = new Rectangle(190,257,131,76);
-    WhiteBackground.setFill(Color.WHITE);
+	public void tick() {
 
+	}
 
-    Node playButton;
-    ImageView play = new ImageView(new Image("https://github.com/jshenny/T07G5/blob/master/PLAY.png?raw=true"));
-    play.setFitHeight(70);
-    play.setFitWidth(125);
-    playButton = play;
-    playButton.setTranslateX(193);
-    playButton.setTranslateY(260);
-    playButton.setOnMouseClicked(event -> System.out.println("HI"));
+	public void  render(Graphics g) throws MalformedURLException, IOException {
+		BufferedImage intro = ImageIO.read(new URL("https://raw.githubusercontent.com/jshenny/T07G5/master/Source-code/resources/intro.png"));
+		BufferedImage play = ImageIO.read(new URL("https://raw.githubusercontent.com/jshenny/T07G5/master/Source-code/resources/play.png"));
 
+		g.drawImage(intro, 0, 0, 695, 810, null);
+		g.drawImage(play, 250, 373, 200, 120, null);
 
-    stage.setTitle("Tetris");
-    stage.setWidth(514);
-    stage.setHeight(535);
-    Pane pane = new Pane();
+		if (MainGame.state == MainGame.GameState.PAUSE) {
+			g.setColor(Color.WHITE);
+			g.setFont(new Font("Jokerman", Font.BOLD, 52));
+			g.drawString("Game Paused", 165, 85);
+		}
+	}
 
-    Scene scene = new Scene(new Group());
-
-    final ImageView image = new ImageView();
-    Image tetrisImage = new Image("https://github.com/jshenny/T07G5/blob/master/TETROS.png?raw=true");
-    image.setImage(tetrisImage);
-
-    pane.getChildren().addAll(image,WhiteBackground, playButton);
-    scene.setRoot(pane);
-    stage.setScene(scene);
-    stage.show();
-  }
 }

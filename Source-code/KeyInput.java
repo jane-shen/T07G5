@@ -3,14 +3,10 @@ import java.awt.event.KeyEvent;
 
 public class KeyInput extends KeyAdapter {
 	
-	private Handler handler;
 	private Board board;
-	private Shape shape;
 	
-	public KeyInput(Handler handler, Board board, Shape shape) {
-		this.handler = handler;
+	public KeyInput(Board board) {
 		this.board = board;
-		this.shape = shape;
 	}
 	
 	public void keyPressed(KeyEvent e) {
@@ -34,6 +30,10 @@ public class KeyInput extends KeyAdapter {
 					break;
 				case KeyEvent.VK_SPACE:
 					board.setDirection("space");
+					System.out.println(key);
+					break;
+				case KeyEvent.VK_ENTER:
+					board.setDirection("enter");
 					System.out.println(key);
 				}
 		}
