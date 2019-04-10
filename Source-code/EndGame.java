@@ -1,7 +1,6 @@
 import java.awt.*;
 import java.io.*;
 import java.net.URL;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import java.awt.Color;
@@ -17,10 +16,15 @@ public class EndGame extends MouseAdapter{
 	private int oldScore;
 	private MainGame game;
 
+	/**
+	*this creates the constructor
+	* @param game takes the current instance of the MainGame
+	*/
 	public EndGame(MainGame game){
 		this.game = game;
-
 	}
+
+	// this checks if the play again button is pressed
     public void mousePressed(MouseEvent e) {
 			int mx = e.getX();
 			int my = e.getY();
@@ -33,21 +37,26 @@ public class EndGame extends MouseAdapter{
 				} catch(Exception supere){}
 			}
     }
-    public void mouseReleased(MouseEvent e) {
-        
-	}
+
+	//checks if mouse is clicked over the a certain area that is provided by the parameter
 	private boolean mouseOver(int mx, int my, int x, int y, int width, int height) {
 		if (mx > x && mx < x + width) {
 			if (my > y && my < y + height) {
 				return true;
-			} else 
+			} else
 			return false;
-		} else 
+		} else
 		return false;
 	}
+
+
     public void tick() {
-        
     }
+
+/**
+* @param g is the graphics you see in the game
+* @param score is the score of the player
+*/
 	public void render(Graphics g, int score) throws IOException {
 	try{
       	FileReader fileWithScore = new FileReader("scoreFile.txt");
@@ -62,7 +71,7 @@ public class EndGame extends MouseAdapter{
 	      PrintWriter writer = new PrintWriter(file);
 	      writer.println(score);
 	      writer.close();
-	    } catch(IOException ioe){
+	    	} catch(IOException ioe){
 	    }
 		}
 
@@ -85,6 +94,6 @@ public class EndGame extends MouseAdapter{
 		g.drawString("Play", 310, 550);
 		g.drawString("Again", 300, 585);
 		g.drawRect(285, 520, 125, 75);
-	
+
 	}
 }
