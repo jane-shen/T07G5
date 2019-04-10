@@ -20,9 +20,9 @@ public class Rules extends MouseAdapter {
 		int mx = e.getX();
 		int my = e.getY();
 		if (mouseOver(mx, my, 285, 620, 125, 75)) {
-			game.state = MainGame.GameState.START;
-			game.setTimeAfterLoss(0);
-			game.resetBoard();
+			if (game.state == MainGame.GameState.RULES) {
+				game.state = MainGame.GameState.START;
+			}
 		}
     }
     public void mouseReleased(MouseEvent e) {

@@ -46,9 +46,11 @@ public class Window extends Canvas{
 		    	} catch(IOException ioe){
 		      		scores = 0;
 			}	
-				g.setColor(Color.WHITE);
-				g.setFont(new Font("SansSerif", Font.BOLD, 32));
-				g.drawString("HIGHSCORE: " + scores, 110, 300);
+			g.setColor(Color.WHITE);
+			g.fillRect(100, 265, 280, 40);
+			g.setFont(new Font("SansSerif", Font.BOLD, 32));
+			g.setColor(Color.BLACK);
+			g.drawString("HIGHSCORE: " + scores, 110, 300);
 			}
 
 		});

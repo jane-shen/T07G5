@@ -36,7 +36,7 @@ public class MainGame extends Canvas implements Runnable {
 		PAUSE;
 	}
 
-	public static GameState state = GameState.ENDGAME;
+	public static GameState state = GameState.RULES;
 
 	//default constructor that initializes elements of the game
 	public MainGame () throws IOException {

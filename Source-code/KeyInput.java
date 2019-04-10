@@ -5,10 +5,15 @@ public class KeyInput extends KeyAdapter {
 	
 	private Board board;
 	
+	//Constructor that initializes the class with the board
 	public KeyInput(Board board) {
 		this.board = board;
 	}
 	
+  	/**
+  	* Takes in the key input and changes the board direction
+  	* @param e This is key that is pressed
+  	*/
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
 			switch (key) {
