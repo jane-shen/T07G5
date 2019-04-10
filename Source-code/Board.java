@@ -88,12 +88,12 @@ public class Board extends Shape{
 
   //Prints the board with the current shapes that have been placed
   public void print2D(){
-		for (int row = 0; row < 16; row++){
-				for (int col = 0; col < 10; col++){
-						System.out.print(" " + board[row][col]);
-					}
-				System.out.println();
+	for (int row = 0; row < 16; row++){
+		for (int col = 0; col < 10; col++){
+			System.out.print(" " + board[row][col]);
 			}
+		System.out.println();
+		}
 	}
 
 
