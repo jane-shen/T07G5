@@ -379,21 +379,42 @@ public class Board extends Shape{
 	      }
 	    }
 	}
-  
+
+  /**
+   * this sets the direction of the board
+   * @param direction
+   */
 	  public void setDirection(String direction) {
 			this.direction = direction;
 	  }
 
+
+    /**
+     * this gets the direction of the board
+     * @return direction of the board
+     */
 	  public String getDirection() {
 		  	return direction;
     }
-    
+
+    /*
+    *this updates the score
+    *the score increments by 40 everytime one row is cleared
+    */
     public void updateScore() {
       score += 40;
     }
+
+    //this gets the score
     public int getScore() {
       return score;
     }
+
+    /*
+    *this saves the highest score
+    *creates a text file where the highscore is written
+    *if there is an existing highscore and a player beats it, it prints the new highscore to the text file
+    */
     public void saveScore() {
       try {
     	File file = new File("highscores.txt");
@@ -405,9 +426,14 @@ public class Board extends Shape{
         output.println(score);
         output.close();
         } catch (Exception e) {
-          
-        }
+      }
     }
+
+/*
+
+*this sets the board
+* this method goes through all the  index in the board to check for 1's, it changes 1's to two for collision purposes
+*/
 	  public void setBoard() {
 		  for (int row = 0; row<16 ; row++)
 			  for (int col = 0; col<10 ; col++)
