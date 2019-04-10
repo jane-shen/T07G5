@@ -9,6 +9,6 @@ Getting Started
   - Open the command prompt
   - In the command prompt, go to the directory where you downloads the files
   - change the directory to Source-code
-  - Compile all the files by inputing this in the command promopt "javac *.java" 
-  - Then run RunGame file by inputing this in the command prompt "java RunGame"
+  - Compile all the files in the Source-code by using the command javac *.java
+  - Then run RunGame file by using the command java RunGame
 
