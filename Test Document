@@ -3,7 +3,18 @@ The purpose of Testing in our game is to ensure that:
   2. each block does not collide with another block 
   3. all methods work properly such as collision detection, rotation, and movements
   
-  The test that we used in our junit test
+  
+  
+How to Test Game against the junit
+  - Open the command prompt
+  - change the directory to testing
+  - compile all the files by using the command javac -cp .;junit-4.12.jar;hamcrest-core-1.3.jar *.java
+  - Run the test using the command  java -cp .:junit-4.12.jar:hamcrest-core-1.3.jar org.junit.runner.JUnitCore BoardTest
+ 
+ 
+ 
+ 
+ The test that we used in our junit test
   1) testInitialPosition
    - this checks if a block is in perfectly in the middle as soon as it respawns
    - What we do in the test is we check if each block is in the correct index in the array(board)
