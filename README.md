@@ -5,15 +5,10 @@ This project is for the class CPSC 233 Winter 2019 at the University of Calgary.
 Tetros is an animation game allows players to rotate falling blocks strategically to clear through rows and gain points as they go. This is a GUI version of tetris. The graphics can be accessed through the command prompt and are seen on a pop up tab and user inputs are required to play the game.
 
 Getting Started
+  - Download the Source-code.zip file and extract the files into a folder.
+  - Open the command prompt
+  - In the command prompt, go to the directory where you downloads the files
+  - change the directory to Source-code
+  - Compile all the files by inputing this in the command promopt "javac *.java" 
+  - Then run RunGame file by inputing this in the command prompt "java RunGame"
 
-To get started you will need to download the Source-code.zip file and extract the files into a folder. You will need to open up an IDE for java and 
-make that folder the source folder. You must compile all the documents in the source file for the game to work. You will then go into the MainGame.java file and run that file. The game will then begin.
-
-Prerequisites
-
-To play this game you'll need an OS that has Java installed along with its default packages. You will need an extractor that can extract zip files
-and an IDE that can run java files.
-
-Testing
-
-We focused on testing our Board.java file the most during our testing as it is a crucial part of the original Tetris games. Our board must be a certain size and must be able to do specific things. 
