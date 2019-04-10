@@ -4,7 +4,11 @@ public class GameStart {
 	private Board board;
 	private Shape shape;
 
-	//this initiates the game printing out the board and picks a random shape to start off the game
+	/**
+	*this initiates the game printing out the board and picks a random shape to start off the game
+	* @param board is the board in the game where the blocks are placed it
+	* @param shape is the shape that you will get to start off the game
+	*/
 	public void startGame(Board board, Shape shape) {
 		this.board = new Board();
 	    this.shape = new Shape();
@@ -15,7 +19,6 @@ public class GameStart {
 
 	//This creates a loop to keep the game going until the game is over
 	    while (true){
-
 	      Scanner move = new Scanner(System.in);
 	      System.out.println("Press spacebar to respawn a random tetromino");
 	      System.out.println("Press 's' to move down");
@@ -97,6 +100,6 @@ public class GameStart {
 	    System.out.println("Press ENTER to Exit");
 	    if (end.hasNextLine()){
 	        end.close();
-	    }
+	  }
 	}
 }
