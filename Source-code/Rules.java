@@ -25,9 +25,7 @@ public class Rules extends MouseAdapter {
 			}
 		}
     }
-    public void mouseReleased(MouseEvent e) {
-        
-	}
+
 	private boolean mouseOver(int mx, int my, int x, int y, int width, int height) {
 		if (mx > x && mx < x + width) {
 			if (my > y && my < y + height) {
@@ -55,7 +53,7 @@ public class Rules extends MouseAdapter {
         g.drawString("Press left arrow to move left", 120, 320);
         g.drawString("Press right arrow to move right", 120, 380);
         g.drawString("Press 'w' to rotate left", 120, 440);
-		g.drawString("Press 'e' to rotate right", 120, 500);
+		g.drawString("Press up arrow to rotate right", 120, 500);
 		g.drawString("Press enter to pause", 120, 560);
 	}
 }

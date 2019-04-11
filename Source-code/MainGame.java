@@ -44,7 +44,7 @@ public class MainGame extends Canvas implements Runnable {
 		shape = new Shape();
 		originalShape = new Shape(shape);
 		board = new Board();
-		hud = new HUD();
+		hud = new HUD(this);
 		introScreen = new Intro();
 		gameOver = new EndGame(this);
 		rules = new Rules(this);

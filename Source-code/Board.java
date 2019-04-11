@@ -44,13 +44,10 @@ public class Board extends Shape{
       }
       if (shape.getShape() != ShapeType.NoShape){
         // this if statement ensures that the shape being placed is not actually a "no shape"
-        for (int k = 0; k < 4; k++){
-          int x = shape.getX(k);
-          int y = shape.getY(k);
-          board[maxY-y][5+x-maxX] = 1;
-          }
-        }
+        setCoords(shape, 1);
+        
       }
+    }
 
 
   /**
@@ -78,24 +75,20 @@ public class Board extends Shape{
           }
         }
         updateScore();
-        System.out.println(score);
         cleared = true;
       }
     }
     return cleared;
   }
-
-
   //Prints the board with the current shapes that have been placed
   public void print2D(){
-	for (int row = 0; row < 16; row++){
-		for (int col = 0; col < 10; col++){
-			System.out.print(" " + board[row][col]);
+		for (int row = 0; row < 16; row++){
+				for (int col = 0; col < 10; col++){
+						System.out.print(" " + board[row][col]);
+					}
+				System.out.println();
 			}
-		System.out.println();
-		}
 	}
-
 
   /**
   * Clears the board by filling it with zeroes
@@ -368,28 +361,8 @@ public class Board extends Shape{
     public int getScore() {
       return score;
     }
-
     /*
-    *this saves the highest score
-    *creates a text file where the highscore is written
-    *if there is an existing highscore and a player beats it, it prints the new highscore to the text file
-    */
-    public void saveScore() {
-      try {
-    	File file = new File("highscores.txt");
-    	String fileName = "highscores.txt";
-    	if (!file.exists()) {
-    		file.createNewFile();
-    	}
-		  PrintWriter output = new PrintWriter(new BufferedWriter(new FileWriter(fileName, true)));
-        output.println(score);
-        output.close();
-        } catch (Exception e) {
-      }
-    }
-
-    /*
-    *this sets the board
+    * this sets the board
     * this method goes through all the  index in the board to check for 1's, it changes 1's to two for collision purposes
     */
 	  public void setBoard() {

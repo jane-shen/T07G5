@@ -6,10 +6,18 @@ import java.io.*;
 public class HUD {
 
 	public static int TIME = 10000;
+	private MainGame game;
+
+	public HUD (MainGame game){
+		this.game = game;
+	}
 
 	public void tick() {
 		TIME--;
 		TIME = MainGame.clamp(TIME, 0, 10000);
+		if (TIME == 0) {
+			game.state = MainGame.GameState.ENDGAME;
+		}
 	}
 
 	public void render(Graphics g, int score) {
