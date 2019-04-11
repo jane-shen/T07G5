@@ -51,49 +51,56 @@ public class EndGame extends MouseAdapter{
 
 
     public void tick() {
-    }
+	}
+	
+	/*
+	* Saves the final score of the game in a file called scoreFile.txt
+	* @param score this is the final score
+	*/
+	public void saveScore(int score) {
+		try{
+			FileReader fileWithScore = new FileReader("scoreFile.txt");
+			BufferedReader readScore = new BufferedReader(fileWithScore);
+			oldScore = Integer.parseInt(readScore.readLine());
+		} catch(IOException ioe){
+			oldScore = 0;
+		}
+			if (score > oldScore){
+				try{
+					File file = new File("scoreFile.txt");
+					PrintWriter writer = new PrintWriter(file);
+					writer.println(score);
+					writer.close();
+				} catch(IOException ioe){
+				}
+			}
+	}
 
+	public int readScore(int scores) {
+		try {
+			FileReader fileWithScore = new FileReader("scoreFile.txt");
+			BufferedReader readScore = new BufferedReader(fileWithScore);
+			return Integer.parseInt(readScore.readLine());
+		} catch(IOException ioe){
+			return 0;
+		}
+	}
 /**
 * @param g is the graphics you see in the game
 * @param score is the score of the player
 */
 	public void render(Graphics g, int score) throws IOException {
-	try{
-      	FileReader fileWithScore = new FileReader("scoreFile.txt");
-      	BufferedReader readScore = new BufferedReader(fileWithScore);
-      	oldScore = Integer.parseInt(readScore.readLine());
-    } catch(IOException ioe){
-      	oldScore = 0;
-    }
-		if (score > oldScore){
-			try{
-	      File file = new File("scoreFile.txt");
-	      PrintWriter writer = new PrintWriter(file);
-	      writer.println(score);
-	      writer.close();
-	    	} catch(IOException ioe){
-	    }
-		}
-
+		int scores = 0;
+		saveScore(score);
+		scores = readScore(scores);
 		BufferedImage highscores = ImageIO.read(new URL("https://raw.githubusercontent.com/jshenny/T07G5/master/Source-code/resources/highscore.png"));
+		BufferedImage button = ImageIO.read(new URL("https://raw.githubusercontent.com/jshenny/T07G5/master/Source-code/resources/play%20again.png"));
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, 1000, 1000);
 		g.drawImage(highscores, 50, 5, null);
-		int scores = 0;
-		try {
-			FileReader fileWithScore = new FileReader("scoreFile.txt");
-			BufferedReader readScore = new BufferedReader(fileWithScore);
-			scores = Integer.parseInt(readScore.readLine());
-		} catch(IOException ioe){
-			scores = 0;
-		}
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("Courier New", Font.BOLD, 32));
 		g.drawString("" + scores, 300, 300);
-
-		g.drawString("Play", 310, 550);
-		g.drawString("Again", 300, 585);
-		g.drawRect(285, 520, 125, 75);
-
+		g.drawImage(button, 285, 520, null);
 	}
 }
