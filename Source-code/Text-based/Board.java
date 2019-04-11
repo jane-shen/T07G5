@@ -1,19 +1,18 @@
+import java.util.Arrays;
 import java.util.ArrayList;
-import java.io.*;
 
 public class Board extends Shape{
   private int[][] board;
   private int maxX;
   private int maxY;
   private String direction = "";
-  private int score = 0;
+  private int score;
 
-  // default constructor that creates empty board
   public Board() {
+    // default contructor that creates empty board
     board = new int[16][10];
+
   }
-
-
   /**
   * Obtains the board of the Board object
   * @return the board
@@ -21,7 +20,6 @@ public class Board extends Shape{
   public int[][] getBoard(){
     return board;
   }
-
 
   /**
   * Places a certain shape on the board
@@ -43,7 +41,7 @@ public class Board extends Shape{
         }
       }
       if (shape.getShape() != ShapeType.NoShape){
-        // this if statement ensures that the shape being placed is not actually a "no shape"
+        // this if statment ensures that the shape being placed is not actually a "no shape"
         for (int k = 0; k < 4; k++){
           int x = shape.getX(k);
           int y = shape.getY(k);
@@ -51,7 +49,6 @@ public class Board extends Shape{
           }
         }
       }
-
 
   /**
   * Checks if a row has been completely filled
@@ -78,25 +75,22 @@ public class Board extends Shape{
           }
         }
         updateScore();
-        System.out.println(score);
         cleared = true;
       }
     }
     return cleared;
   }
 
-
   //Prints the board with the current shapes that have been placed
   public void print2D(){
-	for (int row = 0; row < 16; row++){
-		for (int col = 0; col < 10; col++){
-			System.out.print(" " + board[row][col]);
-			}
-		System.out.println();
-		}
+			for (int row = 0; row < 16; row++){
+					for (int col = 0; col < 10; col++){
+							System.out.print(" " + board[row][col]);
+          }
+					System.out.println();
+      }
+      printScore();
 	}
-
-
   /**
   * Clears the board by filling it with zeroes
   */
@@ -104,66 +98,87 @@ public class Board extends Shape{
     for (int i = 0; i < 16; i++){
 				for (int j = 0; j < 10; j++) {
             board[i][j] = 0;
-      }
+          }
     }
   }
-  /**
-   * Changes the shape's number in the array to the given value
-   * @param shape this is the shape that is being moved on the board
-   * @param value this is the number you want the shape's coordinates to change to
-   */
-  public void setCoords(Shape shape, int value) {
-    if (shape.getShape() != ShapeType.NoShape) {
-        for (int k = 0; k < 4; k++){
-          int x = shape.getX(k);
-          int y = shape.getY(k);
-          board[maxY-y][5+x-maxX] = value;
-          // The y is the actual coordinate of the Y-coord on the board,
-          // and the maxY is the relative coordinate of a part of the shape
-          // The 5+x is the actual coordinate of the X-coord on the board,
-          // and the maxX is the relative coordinate of a part of the shape
-        }
-    }
-  }
-
-
   /**
   * Moves the shape one space to the left
   *@param shape is the random shape that is placed on the board
   */
   public void moveLeft(Shape shape){
-    setCoords(shape, 0);
+    if (shape.getShape() != ShapeType.NoShape){
+      for (int k = 0; k < 4; k++){
+        int x = shape.getX(k);
+        int y = shape.getY(k);
+        board[maxY-y][5+x-maxX] = 0;
+        // The y is the actual coordinate of the Y-coord on the board,
+        // and the maxY is the relative coordinate of a part of the shape
+        // The 5+x is the actual coordinate of the X-coord on the board,
+        // and the maxX is the relative coordinate of a part of the shape
+        }
+      }
     // sets the new x-coords after moving left
     for (int x = 0; x < 4; x++)
       shape.setNewX(x, shape.getX(x)-1);
+
     //applies the shape's new coordinates to the board
-    setCoords(shape, 1);
-    }
+    if (shape.getShape() != ShapeType.NoShape){
+      for (int k = 0; k < 4; k++){
+        int x = shape.getX(k);
+        int y = shape.getY(k);
+        board[maxY-y][5+x-maxX] = 1;
+        }
+      }
 
-
+  }
   /**
   * Moves the shape one space to the right
   * @param shape is the current random shape being moved on the board
   */
   public void moveRight(Shape shape){
-      setCoords(shape, 0);
+    if (shape.getShape() != ShapeType.NoShape){
+      for (int k = 0; k < 4; k++){
+        int x = shape.getX(k);
+        int y = shape.getY(k);
+        board[maxY-y][5+x-maxX] = 0;
+        }
+      }
       // changes x-coords to the new ones after moving right
       for (int x = 0; x < 4; x++)
         shape.setNewX(x, shape.getX(x)+1);
-      setCoords(shape, 1);
+
+      if (shape.getShape() != ShapeType.NoShape){
+        for (int k = 0; k < 4; k++){
+          int x = shape.getX(k);
+          int y = shape.getY(k);
+          board[maxY-y][5+x-maxX] = 1;
+          }
+        }
+
   }
-
-
   /**
    *Moves the shape one space down
    *@param shape is the current random shape being moved on the board
    */
-  public void moveDown(Shape shape) {
-    setCoords(shape, 0);
+  public void moveDown(Shape shape){
+    if (shape.getShape() != ShapeType.NoShape){
+      for (int k = 0; k < 4; k++){
+        int x = shape.getX(k);
+        int y = shape.getY(k);
+        board[maxY-y][5+x-maxX] = 0;
+        }
+      }
     //sets the new y-coordinates after moving one down
-    for (int y = 0; y < 4; y++) 
-      shape.setNewY(y, shape.getY(y)-1);
-    setCoords(shape, 1);
+    for (int y = 0; y < 4; y++){
+    shape.setNewY(y, shape.getY(y)-1);
+  }
+    if (shape.getShape() != ShapeType.NoShape){
+      for (int k = 0; k < 4; k++){
+        int x = shape.getX(k);
+        int y = shape.getY(k);
+        board[maxY-y][5+x-maxX] = 1;
+      }
+    }
   }
 
 /**
@@ -174,27 +189,45 @@ public class Board extends Shape{
   public boolean leftCollision(Shape shape){
     for (int k = 0; k < 4; k++){
       int x = shape.getX(k);
-      int y = shape.getY(k);
       if ((5+x-maxX-1) < 0){
-        /**
-         * x gives us the coordinate in terms of index on the board
-         * so subtracting one checks the left of the coordinate. If it is out of the board
-         * meaning the index is negative
-         */
-    	 return true;
+        // The 5+x is the coordinate of the right-most X-coord of the shape
+        // being moved on the board and the maxX is the relative coordinate of a part of the shape
+        // 5-maxX+x gives us the current point, and subutracting one gives us the point to the left
+        // we can check if it's the edge by checking if this point to the left is negative
+        return true;
       }
-      else if (board[maxY-y][5+x-maxX-1] > 1) {
-    	  /**
-    	   * If it is not out of the board, it checks the value. If it is less than 1,
-    	   * it means there's a shape already placed there
-    	   */
-    	  return true;
+    }
+    // this ArrayList stores the index in which gives us the x-coord that is to the very left
+    // of the shape. We do this because the shape can have multiple left-most parts, hence
+    // we check each of these to see if they collide with any shapes to the left
+    ArrayList<Integer> leftMostIndex = new ArrayList<Integer>();
+    int xvalue = shape.getX(0);
+    leftMostIndex.add(0);
+    for (int index = 1; index < 4; index++){
+      if (xvalue > shape.getX(index)){
+        // if statement to make sure that we have the left-most x-coord
+        xvalue = shape.getX(index);
+        leftMostIndex.clear();
+        // we clear the arraylist if there is an index with a "left-er" x-coord, and store this new index
+        leftMostIndex.add(index);
+      }
+      else if (xvalue == shape.getX(index)){
+        leftMostIndex.add(index);
+        // if the x-coord is the same for two indexes, we have to check both of these
+        // so we just add this new index, rather than ignoring it or replacing the previous
+      }
+    }
+
+    // for-loop checks every left-most x-coord if the spot to the left of the shape is clear
+    for (int indexed : leftMostIndex){
+      int yCoord = shape.getY(indexed);
+      int xCoord = shape.getX(indexed);
+      if (board[maxY-yCoord][5+xCoord-maxX-1] == 2){
+        return true;
       }
     }
     return false;
   }
-
-
 
   /**
    * Checks if the current shape will collide with another shape on its right or the right edge of the board
@@ -204,18 +237,36 @@ public class Board extends Shape{
   public boolean rightCollision(Shape shape){
     for (int k = 0; k < 4; k++){
       int x = shape.getX(k);
-      int y = shape.getY(k);
       if ((5+x-maxX+1) > 9){
         // similar to leftCollision, except adding 1 to check to the right. At the edge if greater than 9
         return true;
       }
-      else if (board[maxY-y][5+x-maxX+1] > 1) {
-      	 return true;
-        }
+    }
+    // same as leftCollision, except storing indexes that give the right-most x-coord when using getX() method
+    ArrayList<Integer> rightMostIndex = new ArrayList<Integer>();
+    int xvalue = shape.getX(0);
+    rightMostIndex.add(0);
+    for (int index = 1; index < 4; index++){
+      if (xvalue < shape.getX(index)){
+        xvalue = shape.getX(index);
+        rightMostIndex.clear();
+        rightMostIndex.add(index);
+      }
+      else if (xvalue == shape.getX(index)){
+        rightMostIndex.add(index);
+      }
+    }
+    // same as leftCollision, except checking if the right-most x-coords will collide against something to the right
+    for (int indexed : rightMostIndex){
+      int yCoord = shape.getY(indexed);
+      int xCoord = shape.getX(indexed);
+      // we grab the relative coordinates of both x and y of a point of a shape
+      if (board[maxY-yCoord][5+xCoord-maxX+1] == 2){
+        return true;
+      }
     }
     return false;
   }
-
 
   /**
    * Checks if the current shape will collide with another shape below it or the bottom edge of the board
@@ -227,7 +278,6 @@ public class Board extends Shape{
   public boolean bottomCollision(Shape shape){
     for (int k = 0; k < 4; k++){
       int y = shape.getY(k);
-      int x = shape.getX(k);
       if ((maxY-y+1) > 15){
         // The y is the highest Y-coord of the shape on the board,
         // and the maxY is the relative coordinate of a part of the shape
@@ -235,27 +285,41 @@ public class Board extends Shape{
         // of the points goes over the index 15
         return true;
       }
-      if (board[maxY-y+1][5+x-maxX] > 1)
-        return true;
-    }
-      return false;
     }
 
-  // this is the method that is responsible for rotating the block to the left
+    for (int k = 0; k < 4; k++){
+      int yCoord = shape.getY(k);
+      int xCoord = shape.getX(k);
+      if (board[maxY-yCoord+1][5+xCoord-maxX] == 2)
+        return true;
+    }
+
+  return false;
+}
   public void rotateLeft(Shape shape, Shape originalShape) {
 	    boolean rotatable = true;
 	    ArrayList<Integer> originalXValues = new ArrayList<Integer>();
-	    int centerX = shape.getX(2);
-	    int centerY = shape.getY(2);
-	    if (shape.getShape() != ShapeType.SquareShape){
-	      setCoords(shape, 0);
-      }
-      //this sets the new x value from the previous negative y value
+	    int centerX;
+	    int centerY;
+	    if (shape.getShape() != ShapeType.TShape) {
+		    centerX = shape.getX(2);
+		    centerY = shape.getY(2);
+	    } else {
+	    	centerX = shape.getX(1);
+	    	centerY = shape.getY(1);
+	    }
+	    if (shape.getShape() != ShapeType.NoShape && shape.getShape() != ShapeType.SquareShape){
+	      for (int k = 0; k < 4; k++){
+	        int x = shape.getX(k);
+	        int y = shape.getY(k);
+	        board[maxY-y][5+x-maxX] = 0;
+	        }
+	      }
 	    for (int x = 0; x < 4; x++) {
 	      originalXValues.add(originalShape.getX(x));
 	      originalShape.setNewX(x, -originalShape.getY(x));
 	    }
-      //this sets the new y value from the previous x value
+
 	    for (int y = 0; y < 4; y++){
 	      originalShape.setNewY(y, originalXValues.get(y));
 	    }
@@ -267,7 +331,7 @@ public class Board extends Shape{
 	        int y = centerY + originalShape.getY(k);
 	        if ((5+x-maxX) < 0 || (5+x-maxX) > 9 || (maxY-y) > 15 || (maxY - y) < 0) {
 	          rotatable = false;
-	        } else if ((board[1-y][5+x-maxX] == 1)) {
+	        } else if ((board[maxY-y][5+x-maxX] == 2)) {
 	          rotatable = false;
 	        }
 	      }
@@ -283,18 +347,25 @@ public class Board extends Shape{
 	      }
 	    //undos the rotate
 	    else if (rotatable == false) {
-	      setCoords(shape, 1);
+	      for (int k = 0; k < 4; k++){
+	        int x = shape.getX(k);
+	        int y = shape.getY(k);
+	        board[maxY-y][5+x-maxX] = 1;
+	      }
 	    }
 	  }
-
-
-
-    //this method is responsible for rotating the block to the right
 	  public void rotateRight(Shape shape, Shape originalShape) {
 	    boolean rotatable = true;
 	    ArrayList<Integer> originalXValues = new ArrayList<Integer>();
-	    int centerX = shape.getX(2);
-	    int centerY = shape.getY(2);
+	    int centerX;
+	    int centerY;
+	    if (shape.getShape() != ShapeType.TShape) {
+		    centerX = shape.getX(2);
+		    centerY = shape.getY(2);
+	    } else {
+	    	centerX = shape.getX(1);
+	    	centerY = shape.getY(1);
+	    }
 	    if (shape.getShape() != ShapeType.NoShape && shape.getShape() != ShapeType.SquareShape){
 	      for (int k = 0; k < 4; k++){
 	        int x = shape.getX(k);
@@ -318,10 +389,9 @@ public class Board extends Shape{
 	        int y = centerY + originalShape.getY(k);
 	        if ((5+x-maxX) < 0 || (5+x-maxX) > 9 || (maxY-y) > 15 || (maxY - y) < 0) {
 	          rotatable = false;
-	        } else if ((board[1-y][5+x-maxX] == 1)) {
+	        } else if ((board[1-y][5+x-maxX] == 2)) {
 	          rotatable = false;
 	        }
-	        System.out.println(rotatable);
 	      }
 	    }
 	    if (shape.getShape() != ShapeType.NoShape && shape.getShape() != ShapeType.SquareShape && rotatable == true){
@@ -333,69 +403,35 @@ public class Board extends Shape{
 	          board[maxY-y][5+x-maxX] = 1;
 	        }
 	      }
-	    //undoes the rotate
+	    //undos the rotate
 	    else if (rotatable == false) {
-	      setCoords(shape, 1);
+	      for (int k = 0; k < 4; k++){
+	        int x = shape.getX(k);
+	        int y = shape.getY(k);
+	        board[maxY-y][5+x-maxX] = 1;
+	      }
 	    }
 	}
-
-  /**
-   * this sets the direction of the board
-   * @param direction
-   */
 	  public void setDirection(String direction) {
 			this.direction = direction;
 	  }
-
-
-    /**
-     * this gets the direction of the board
-     * @return direction of the board
-     */
+	  
 	  public String getDirection() {
 		  	return direction;
-    }
-
-    /*
-    *this updates the score
-    *the score increments by 40 everytime one row is cleared
-    */
-    public void updateScore() {
-      score += 40;
-    }
-
-    //this gets the score
-    public int getScore() {
-      return score;
-    }
-
-    /*
-    *this saves the highest score
-    *creates a text file where the highscore is written
-    *if there is an existing highscore and a player beats it, it prints the new highscore to the text file
-    */
-    public void saveScore() {
-      try {
-    	File file = new File("highscores.txt");
-    	String fileName = "highscores.txt";
-    	if (!file.exists()) {
-    		file.createNewFile();
-    	}
-		  PrintWriter output = new PrintWriter(new BufferedWriter(new FileWriter(fileName, true)));
-        output.println(score);
-        output.close();
-        } catch (Exception e) {
-      }
-    }
-
-    /*
-    *this sets the board
-    * this method goes through all the  index in the board to check for 1's, it changes 1's to two for collision purposes
-    */
-	  public void setBoard() {
-		  for (int row = 0; row<16 ; row++)
-			  for (int col = 0; col<10 ; col++)
-				  if (board[row][col] == 1)
-					  board[row][col] = 2;
 	  }
+	  public void setBoard() {
+		  for (int row = 0; row < 16; row++){
+				for (int col = 0; col < 10; col++){
+					if (board[row][col] == 1) {
+						board[row][col] = 2;
+					}
+				}
+		  }
+    }
+    public void updateScore() {
+      score += 50;
+    }
+    public void printScore() {
+      System.out.println("Score: " + score);
+    }
 }
