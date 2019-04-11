@@ -412,13 +412,10 @@ public class Board extends Shape{
 	      }
 	    }
 	}
-	  public void setDirection(String direction) {
-			this.direction = direction;
-	  }
-	  
-	  public String getDirection() {
-		  	return direction;
-	  }
+    /*
+    * this sets the board
+    * this method goes through all the  index in the board to check for 1's, it changes 1's to two for collision purposes
+    */
 	  public void setBoard() {
 		  for (int row = 0; row < 16; row++){
 				for (int col = 0; col < 10; col++){
@@ -428,9 +425,15 @@ public class Board extends Shape{
 				}
 		  }
     }
+    /*
+    * Updates the score by adding 40 pts
+    */
     public void updateScore() {
-      score += 50;
+      score += 40;
     }
+    /*
+    * Prints the score out in the format Score: <score> 
+    */
     public void printScore() {
       System.out.println("Score: " + score);
     }
