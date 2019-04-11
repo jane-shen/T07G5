@@ -45,7 +45,6 @@ public class Shape {
        tetromino = shape;
    }
 
-
 	 /**
 	 *Gets the shape of the object ShapeType
 	 *@return tetromino which is the type of tetris block (shape)
@@ -93,38 +92,4 @@ public class Shape {
 	public int getY(int index){
 		return coords[index][1];
 	}
-
-	/**
-	* Rotates the shape counter-clockwise
-	* @param shape This is the shape we want to rotate
-	* Still to be implemented (TBI)
-	
-  public Shape rotateLeft(Shape shape) {
-		if (tetromino == ShapeType.SquareShape)
-			return this;
-		Shape newPosition = new Shape();
-		for (int i = 0; i < 4 ; i++){
-			newPosition.setNewX(i, getY(i));
-			newPosition.setNewY(i, -getX(i));
-		}
-		return newPosition;
-	}
-	*/
-	/**
-	* Rotates the shape clockwise
-	* @param shape This is the shape we want to rotateLeft
-	* Still TBI
-	
-	public Shape rotateRight(Shape shape) {
-		if (tetromino == ShapeType.SquareShape){
-			return shape;
-		}
-		Shape newPosition = new Shape();
-		for (int i = 0; i<4 ; i++){
-			newPosition.setNewX(i, -getY(i));
-			newPosition.setNewY(i, getX(i));
-		}
-		return newPosition;
-	}
-	*/
 }
