@@ -75,7 +75,7 @@ public class EndGame extends MouseAdapter{
 	    }
 		}
 
-		BufferedImage highscores = ImageIO.read(new URL("https://raw.githubusercontent.com/jshenny/T07G5/master/Source-code/FilesThatWorkAsGUI/resources/highscore.png"));
+		BufferedImage highscores = ImageIO.read(new URL("https://raw.githubusercontent.com/jshenny/T07G5/master/Source-code/resources/highscore.png"));
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, 1000, 1000);
 		g.drawImage(highscores, 50, 5, null);
