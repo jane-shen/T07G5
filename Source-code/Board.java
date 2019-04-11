@@ -107,6 +107,24 @@ public class Board extends Shape{
       }
     }
   }
+  /**
+   * Changes the shape's number in the array to the given value
+   * @param shape this is the shape that is being moved on the board
+   * @param value this is the number you want the shape's coordinates to change to
+   */
+  public void setCoords(Shape shape, int value) {
+    if (shape.getShape() != ShapeType.NoShape) {
+        for (int k = 0; k < 4; k++){
+          int x = shape.getX(k);
+          int y = shape.getY(k);
+          board[maxY-y][5+x-maxX] = value;
+          // The y is the actual coordinate of the Y-coord on the board,
+          // and the maxY is the relative coordinate of a part of the shape
+          // The 5+x is the actual coordinate of the X-coord on the board,
+          // and the maxX is the relative coordinate of a part of the shape
+        }
+    }
+  }
 
 
   /**
@@ -114,29 +132,12 @@ public class Board extends Shape{
   *@param shape is the random shape that is placed on the board
   */
   public void moveLeft(Shape shape){
-    if (shape.getShape() != ShapeType.NoShape){
-      for (int k = 0; k < 4; k++){
-        int x = shape.getX(k);
-        int y = shape.getY(k);
-        board[maxY-y][5+x-maxX] = 0;
-        // The y is the actual coordinate of the Y-coord on the board,
-        // and the maxY is the relative coordinate of a part of the shape
-        // The 5+x is the actual coordinate of the X-coord on the board,
-        // and the maxX is the relative coordinate of a part of the shape
-        }
-      }
+    setCoords(shape, 0);
     // sets the new x-coords after moving left
     for (int x = 0; x < 4; x++)
       shape.setNewX(x, shape.getX(x)-1);
-
     //applies the shape's new coordinates to the board
-    if (shape.getShape() != ShapeType.NoShape){
-      for (int k = 0; k < 4; k++){
-        int x = shape.getX(k);
-        int y = shape.getY(k);
-        board[maxY-y][5+x-maxX] = 1;
-        }
-      }
+    setCoords(shape, 1);
     }
 
 
@@ -145,53 +146,25 @@ public class Board extends Shape{
   * @param shape is the current random shape being moved on the board
   */
   public void moveRight(Shape shape){
-    if (shape.getShape() != ShapeType.NoShape){
-      for (int k = 0; k < 4; k++){
-        int x = shape.getX(k);
-        int y = shape.getY(k);
-        board[maxY-y][5+x-maxX] = 0;
-        }
-      }
+      setCoords(shape, 0);
       // changes x-coords to the new ones after moving right
       for (int x = 0; x < 4; x++)
         shape.setNewX(x, shape.getX(x)+1);
-
-      if (shape.getShape() != ShapeType.NoShape){
-        for (int k = 0; k < 4; k++){
-          int x = shape.getX(k);
-          int y = shape.getY(k);
-          board[maxY-y][5+x-maxX] = 1;
-          }
-        }
-      }
+      setCoords(shape, 1);
+  }
 
 
   /**
    *Moves the shape one space down
    *@param shape is the current random shape being moved on the board
    */
-  public void moveDown(Shape shape){
-    if (shape.getShape() != ShapeType.NoShape){
-      for (int k = 0; k < 4; k++){
-        int x = shape.getX(k);
-        int y = shape.getY(k);
-        board[maxY-y][5+x-maxX] = 0;
-        }
-      }
+  public void moveDown(Shape shape) {
+    setCoords(shape, 0);
     //sets the new y-coordinates after moving one down
-    for (int y = 0; y < 4; y++){
-    shape.setNewY(y, shape.getY(y)-1);
+    for (int y = 0; y < 4; y++) 
+      shape.setNewY(y, shape.getY(y)-1);
+    setCoords(shape, 1);
   }
-    if (shape.getShape() != ShapeType.NoShape){
-      for (int k = 0; k < 4; k++){
-        int x = shape.getX(k);
-        int y = shape.getY(k);
-        board[maxY-y][5+x-maxX] = 1;
-      }
-    }
-  }
-
-
 
 /**
 * Checks if moving the shape left will collide with any other shapes or the edge of the board
@@ -268,27 +241,21 @@ public class Board extends Shape{
       return false;
     }
 
-
-
   // this is the method that is responsible for rotating the block to the left
   public void rotateLeft(Shape shape, Shape originalShape) {
 	    boolean rotatable = true;
 	    ArrayList<Integer> originalXValues = new ArrayList<Integer>();
 	    int centerX = shape.getX(2);
 	    int centerY = shape.getY(2);
-	    if (shape.getShape() != ShapeType.NoShape && shape.getShape() != ShapeType.SquareShape){
-	      for (int k = 0; k < 4; k++){
-	        int x = shape.getX(k);
-	        int y = shape.getY(k);
-	        board[maxY-y][5+x-maxX] = 0;
-	        }
-	      }
+	    if (shape.getShape() != ShapeType.SquareShape){
+	      setCoords(shape, 0);
+      }
+      //this sets the new x value from the previous negative y value
 	    for (int x = 0; x < 4; x++) {
-        //this is makes the y value of the given x negative which is responsible for flipping
 	      originalXValues.add(originalShape.getX(x));
 	      originalShape.setNewX(x, -originalShape.getY(x));
 	    }
-
+      //this sets the new y value from the previous x value
 	    for (int y = 0; y < 4; y++){
 	      originalShape.setNewY(y, originalXValues.get(y));
 	    }
@@ -316,11 +283,7 @@ public class Board extends Shape{
 	      }
 	    //undos the rotate
 	    else if (rotatable == false) {
-	      for (int k = 0; k < 4; k++){
-	        int x = shape.getX(k);
-	        int y = shape.getY(k);
-	        board[maxY-y][5+x-maxX] = 1;
-	      }
+	      setCoords(shape, 1);
 	    }
 	  }
 
@@ -372,11 +335,7 @@ public class Board extends Shape{
 	      }
 	    //undoes the rotate
 	    else if (rotatable == false) {
-	      for (int k = 0; k < 4; k++){
-	        int x = shape.getX(k);
-	        int y = shape.getY(k);
-	        board[maxY-y][5+x-maxX] = 1;
-	      }
+	      setCoords(shape, 1);
 	    }
 	}
 
@@ -422,18 +381,17 @@ public class Board extends Shape{
     	if (!file.exists()) {
     		file.createNewFile();
     	}
-		PrintWriter output = new PrintWriter(new BufferedWriter(new FileWriter(fileName, true)));
+		  PrintWriter output = new PrintWriter(new BufferedWriter(new FileWriter(fileName, true)));
         output.println(score);
         output.close();
         } catch (Exception e) {
       }
     }
 
-/*
-
-*this sets the board
-* this method goes through all the  index in the board to check for 1's, it changes 1's to two for collision purposes
-*/
+    /*
+    *this sets the board
+    * this method goes through all the  index in the board to check for 1's, it changes 1's to two for collision purposes
+    */
 	  public void setBoard() {
 		  for (int row = 0; row<16 ; row++)
 			  for (int col = 0; col<10 ; col++)
