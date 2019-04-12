@@ -1,8 +1,8 @@
 import java.awt.*;
 import java.io.*;
+import java.net.MalformedURLException;
 import java.net.URL;
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -13,17 +13,16 @@ import java.awt.event.MouseEvent;
 import java.lang.Runtime;
 
 public class EndGame extends MouseAdapter{
+	
 	private int oldScore;
-	private MainGame game;
-
-	/**
-	*this creates the constructor
-	* @param game takes the current instance of the MainGame
-	*/
-	public EndGame(MainGame game){
-		this.game = game;
+	private BufferedImage highscores;
+	private BufferedImage button;
+	
+	public EndGame () throws MalformedURLException, IOException {
+		highscores = ImageIO.read(new URL("https://raw.githubusercontent.com/jshenny/T07G5/master/Source-code/resources/highscore.png"));
+		button = ImageIO.read(new URL("https://raw.githubusercontent.com/jshenny/T07G5/master/Source-code/resources/play%20again.png"));
 	}
-
+	
 	// this checks if the play again button is pressed
     public void mousePressed(MouseEvent e) {
 			int mx = e.getX();
@@ -48,12 +47,8 @@ public class EndGame extends MouseAdapter{
 		} else
 		return false;
 	}
-
-
-    public void tick() {
-	}
 	
-	/*
+	/**
 	* Saves the final score of the game in a file called scoreFile.txt
 	* @param score this is the final score
 	*/
@@ -62,6 +57,7 @@ public class EndGame extends MouseAdapter{
 			FileReader fileWithScore = new FileReader("scoreFile.txt");
 			BufferedReader readScore = new BufferedReader(fileWithScore);
 			oldScore = Integer.parseInt(readScore.readLine());
+			readScore.close();
 		} catch(IOException ioe){
 			oldScore = 0;
 		}
@@ -76,25 +72,30 @@ public class EndGame extends MouseAdapter{
 			}
 	}
 
-	public int readScore(int scores) {
+	/**
+	 * This method looks at the score stored in the file called scoreFile.txt
+	 * @return the score found in the file
+	 */
+	public int readScore() {
 		try {
 			FileReader fileWithScore = new FileReader("scoreFile.txt");
 			BufferedReader readScore = new BufferedReader(fileWithScore);
-			return Integer.parseInt(readScore.readLine());
+			int scoreFound = Integer.parseInt(readScore.readLine());
+			readScore.close();
+			return scoreFound;
 		} catch(IOException ioe){
 			return 0;
 		}
 	}
-/**
-* @param g is the graphics you see in the game
-* @param score is the score of the player
-*/
+	
+	/**
+	 * @param g is the graphics you see in the game
+	 * @param score is the score of the player
+	 */
 	public void render(Graphics g, int score) throws IOException {
 		int scores = 0;
 		saveScore(score);
-		scores = readScore(scores);
-		BufferedImage highscores = ImageIO.read(new URL("https://raw.githubusercontent.com/jshenny/T07G5/master/Source-code/resources/highscore.png"));
-		BufferedImage button = ImageIO.read(new URL("https://raw.githubusercontent.com/jshenny/T07G5/master/Source-code/resources/play%20again.png"));
+		scores = readScore();
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, 1000, 1000);
 		g.drawImage(highscores, 50, 5, null);

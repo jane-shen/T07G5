@@ -10,18 +10,21 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 
 public class Rules extends MouseAdapter {
-	private MainGame game;
-
-	public Rules (MainGame game){
-		this.game = game;
-
+	
+	private BufferedImage background;
+	private BufferedImage button;
+	
+	public Rules () throws MalformedURLException, IOException {
+		background = ImageIO.read(new URL("https://raw.githubusercontent.com/jshenny/T07G5/master/Source-code/resources/tetros%20rules.png"));
+		button = ImageIO.read(new URL("https://raw.githubusercontent.com/jshenny/T07G5/master/Source-code/resources/OKAY.png"));
 	}
+	
     public void mousePressed(MouseEvent e) {
 		int mx = e.getX();
 		int my = e.getY();
 		if (mouseOver(mx, my, 285, 620, 125, 75)) {
-			if (game.state == MainGame.GameState.RULES) {
-				game.state = MainGame.GameState.START;
+			if (MainGame.state == MainGame.GameState.RULES) {
+				MainGame.state = MainGame.GameState.START;
 			}
 		}
     }
@@ -35,13 +38,8 @@ public class Rules extends MouseAdapter {
 		} else 
 		return false;
 	}
-    public void tick() {
-        
-    }
 
     public void render(Graphics g) throws MalformedURLException, IOException {
-        BufferedImage background = ImageIO.read(new URL("https://raw.githubusercontent.com/jshenny/T07G5/master/Source-code/resources/tetros%20rules.png"));
-		BufferedImage button = ImageIO.read(new URL("https://raw.githubusercontent.com/jshenny/T07G5/master/Source-code/resources/OKAY.png"));
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, 700, 845);
 		g.setColor(Color.WHITE);

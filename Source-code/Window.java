@@ -43,6 +43,7 @@ public class Window extends Canvas{
 		      		FileReader fileWithScore = new FileReader("scoreFile.txt");
 		      		BufferedReader readScore = new BufferedReader(fileWithScore);
 		      		scores = Integer.parseInt(readScore.readLine());
+		      		readScore.close();
 		    	} catch(IOException ioe){
 		      		scores = 0;
 			}	

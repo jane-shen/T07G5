@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.io.*;
 
 public class Board extends Shape{
   private int[][] board;
