@@ -14,11 +14,19 @@ public class Rules extends MouseAdapter {
 	private BufferedImage background;
 	private BufferedImage button;
 	
+	/**
+	 * Initializes the images
+	 * @throws MalformedURLException for the the URL link is not valid
+	 * @throws IOException for when the URL for the image fails to be loaded
+	 */
 	public Rules () throws MalformedURLException, IOException {
 		background = ImageIO.read(new URL("https://raw.githubusercontent.com/jshenny/T07G5/master/Source-code/resources/tetros%20rules.png"));
 		button = ImageIO.read(new URL("https://raw.githubusercontent.com/jshenny/T07G5/master/Source-code/resources/OKAY.png"));
 	}
 	
+	/**
+	 * Checks if mouse is pressed on a certain area, that of which is where the okay button is located
+	 */
     public void mousePressed(MouseEvent e) {
 		int mx = e.getX();
 		int my = e.getY();
@@ -39,7 +47,11 @@ public class Rules extends MouseAdapter {
 		return false;
 	}
 
-    public void render(Graphics g) throws MalformedURLException, IOException {
+	/**
+	 * Renders the rules page on the graphics
+	 * @param g is the Graphics object to be drawn on
+	 */
+    public void render(Graphics g) {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, 700, 845);
 		g.setColor(Color.WHITE);
