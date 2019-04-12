@@ -6,6 +6,10 @@ public class HUD {
 
 	public static int TIME = 10000;
 
+	/**
+	 * Keeps track of the timer and reduces time remaining every tick
+	 * Once it reaches 0, game ends
+	 */
 	public void tick() {
 		TIME--;
 		TIME = MainGame.clamp(TIME, 0, 10000);
@@ -14,6 +18,11 @@ public class HUD {
 		}
 	}
 
+	/**
+	 * Renders the Time-Bar and Score to the right hand side of the screen
+	 * @param g is the Graphics object to be drawn on
+	 * @param score is the current score of the player
+	 */
 	public void render(Graphics g, int score) {
 		g.setColor(Color.blue);
 		g.fillRect(530, 400, 140, (int)(.038*TIME));
