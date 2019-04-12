@@ -9,7 +9,7 @@ How to Test Game against the junit
   - Open the command prompt
   - change the directory to testing
   - compile all the files by using the command javac -cp .;junit-4.12.jar;hamcrest-core-1.3.jar *.java
-  - Run the test using the command  java -cp .:junit-4.12.jar:hamcrest-core-1.3.jar org.junit.runner.JUnitCore BoardTest
+  - Run the test using the command  java -cp .;junit-4.12.jar;hamcrest-core-1.3.jar org.junit.runner.JUnitCore BoardTest
  
  
  
