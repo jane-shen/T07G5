@@ -27,12 +27,12 @@ public class EndGame extends MouseAdapter{
     public void mousePressed(MouseEvent e) {
 			int mx = e.getX();
 			int my = e.getY();
-			System.out.println(mx);
-			System.out.println(my);
 			if (mouseOver(mx, my, 285, 520, 125, 75)) {
 				try{
-					Runtime.getRuntime().exec("java RunGame");
-					System.exit(1);
+					if (MainGame.state == MainGame.GameState.ENDGAME) {
+						Runtime.getRuntime().exec("java RunGame");
+						System.exit(1);
+					}
 				} catch(Exception supere){}
 			}
     }
